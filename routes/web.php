@@ -11,8 +11,12 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function (){
     return view('welcome');
 });
 
 Route::get('works/crete', 'WorkController@index');
+
+Route::get('/holiday', 'CalendarController@getHoliday');
+Route::POST('/holiday', 'CalendarController@postHoliday');
+Route::get('/', 'CalendarController@index');
