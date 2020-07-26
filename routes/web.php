@@ -11,12 +11,11 @@
 |
 */
 
-Route::get('/', function (){
-    return view('welcome');
-});
-
-Route::get('works/crete', 'WorkController@index');
+Route::get('works/crete', 'WorkController@index')->middleware('auth');
 
 Route::get('/holiday', 'CalendarController@getHoliday');
 Route::POST('/holiday', 'CalendarController@postHoliday');
-Route::get('/', 'CalendarController@index');
+Route::get('/', 'CalendarController@index')->middleware('auth');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

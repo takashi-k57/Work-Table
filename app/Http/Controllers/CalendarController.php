@@ -16,7 +16,9 @@ class CalendarController extends Controller //クラス名間違いエラーあ�
     public function postHoliday(Request $request){
          //POSTで受信した休日データを登録
          $holiday = new Holiday();
-         $holiday->day = $request->description;
+         $holiday->day = $request->day;
+         $holiday->description = $request->description;
+         $holiday->user_id = auth()->user()->id;
          $holiday->save();
          //休日データ取得
          $list = Holiday::all();
@@ -24,7 +26,7 @@ class CalendarController extends Controller //クラス名間違いエラーあ�
     }
 
     public function index(Request $request){
-        $list = Holiday::all();
+        $list = Holiday::where('user_id', auth()->user()->id)->get();
         $cal = new Calendar($list);
         $tag = $cal->showCalendarTag($request->month,$request->year);
 
