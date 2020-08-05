@@ -9,7 +9,7 @@
     </div>
     <div class="container">
       <form class="mt-5, signupForm" id="new_user" action="{{ route('register') }}" accept-charset="UTF-8" method="post">
-        {{ csrf_field() }}
+        @csrf
         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
           <label for="user_name">お名前</label>
           <input class="form-control" placeholder="名前を入力してください" type="text" name="name" value="{{ old('name') }}" required autofocus>

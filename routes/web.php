@@ -17,11 +17,11 @@ Route::get('/', function (){
 
 Route::get('works/crete', 'WorkController@index')->middleware('auth');
 
-Route::get('/holiday', 'CalendarController@getHoliday')->middleware('auth');
-Route::POST('/holiday', 'CalendarController@postHoliday')->middleware('auth');
-Route::get('/', 'CalendarController@index')->middleware('auth');;
-Route::get('/holiday/{id}', 'CalendarController@getHolidayId')->middleware('auth');
-Route::delete('/holiday', 'CalendarController@deleteHoliday')->middleware('auth');
+Route::get('holiday/create', 'HolidayController@create')->middleware('auth');
+Route::POST('holiday/show', 'HolidayController@show')->middleware('auth');
+Route::get('holiday/edit', 'HolidayController@edit')->middleware('auth');
+Route::delete('holiday/dalete', 'HolidayController@delete')->middleware('auth');
+Route::get('/', 'CalendarController@index')->middleware('auth')->name('new');
 
 Auth::routes();
 

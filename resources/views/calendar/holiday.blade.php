@@ -3,7 +3,7 @@
 @section('content')
     <h1>勤務・休日設定</h1>
     <!-- 休日入力フォーム -->
-    <form method="POST" action="/holiday"> 
+    <form method="POST" action="HolidayController@create"> 
     <div class="form-group">
     @csrf   
     <label for="day">日付[YYYY/MM/DD] </label>
