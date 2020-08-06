@@ -3,7 +3,7 @@
 @section('content')
     {!!$cal_tag!!}
 @endsection
-<a href="{{ url('holiday/create') }}">休日設定</a>
+<a href="{{ url('/holiday') }}">休日設定</a>
 
 <div id="app">
             {{-- 画面上部に表示するナビゲーションバーです。 --}}

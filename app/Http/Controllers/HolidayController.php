@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Holiday;
+use App\Calendar;
 use Illuminate\Http\Request;
 
 class HolidayController extends Controller
@@ -52,7 +53,7 @@ class HolidayController extends Controller
         return view('calendar.holiday', ['list' => $list, 'data' => $data]);
     }
 
-    public function delete(Request $request){
+    public function destroy(Request $request){
         //Deleteで受信した休日データの削除
         if(isset($request->id)){
             $holiday = Holiday::where('id', '=', $request->id)->first();
