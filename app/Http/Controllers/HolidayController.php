@@ -18,7 +18,7 @@ class HolidayController extends Controller
         return view('calendar.holiday', ['list' => $list,'data' => $data]);
     }
    
-    public function show(Request $request)
+    public function store(Request $request)
     {
         $validatedData = $request->validate([
             'day' => 'required|date_format:Y-m-d',

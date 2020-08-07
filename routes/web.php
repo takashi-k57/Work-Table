@@ -11,17 +11,18 @@
 |
 */
 
-Route::get('/', function (){
-    return view('welcome');
-});
+
 
 Route::get('works/crete', 'WorkController@index')->middleware('auth');
 
-Route::get('/holiday', 'HolidayController@create')->middleware('auth');
-Route::POST('/holiday', 'HolidayController@show')->middleware('auth');
-Route::get('/holiday/{id}', 'HolidayController@edit')->middleware('auth');
-Route::delete('/holiday', 'HolidayController@destroy')->middleware('auth');
-Route::get('/', 'CalendarController@index')->middleware('auth')->name('new');
+Route::group(['middleware' => 'auth'],function(){
+    Route::get('/holiday', 'HolidayController@create');
+    Route::POST('/holiday', 'HolidayController@store');
+    Route::get('/holiday/{id}', 'HolidayController@edit');
+    Route::delete('/holiday', 'HolidayController@destroy');
+    Route::get('/', 'CalendarController@index')->name('new');
+});
+
 
 Auth::routes();
 
