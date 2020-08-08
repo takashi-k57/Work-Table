@@ -2,71 +2,89 @@
 
 namespace App\Http\Controllers;
 
-use App\Holiday;
 use Illuminate\Http\Request;
+use App\Holiday;
 use App\Calendar;
 
-class CalendarController extends Controller //クラス名間違いエラーあり
+class CalendarController extends Controller
 {
-    
-    public function getHoliday(Request $request)
-    {   
-        // 休日データ取得
-        $data = new Holiday();
-        $list = Holiday::all();
-        return view('calendar.holiday', ['list' => $list,'data' => $data]);
-    }
-    public function getHolidayId($id)
+    /**
+    * Display a listing of the resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function index(Request $request)
     {
-        // 休日データ取得
-        $data = new Holiday();
-        if (isset($id)) {
-            $data = Holiday::where('id', '=', $id)->first();
-        } 
-        $list = Holiday::all();
-        return view('calendar.holiday', ['list' => $list, 'data' => $data]);
-    }
-    public function postHoliday(Request $request)
-    {
-        $validatedData = $request->validate([
-            'day' => 'required|date_format:Y-m-d',
-            'description' => 'required',
-        ]);
-        // POSTで受信した休日データの登録
-        if (isset($request->id)) {
-            $holiday = Holiday::where('id', '=', $request->id)->first();
-            $holiday->day = $request->day;
-            $holiday->description = $request->description;        
-            $holiday->save();
-        } else {
-            $holiday = new Holiday(); 
-            $holiday->day = $request->day;
-            $holiday->description = $request->description;        
-            $holiday->save();
-        }
-        // 休日データ取得
-        $data = new Holiday();
-        $list = Holiday::all();
-        return view('calendar.holiday', ['list' => $list, 'data' => $data]);
-    }
-    public function index(Request $request){
         $list = Holiday::all();
         $cal = new Calendar($list);
         $tag = $cal->showCalendarTag($request->month,$request->year);
-
+        
         return view('calendar.index', ['cal_tag' => $tag]);
-
     }
-    public function deleteHoliday(Request $request){
-        //Deleteで受信した休日データの削除
-        if(isset($request->id)){
-            $holiday = Holiday::where('id', '=', $request->id)->first();
-            $holiday->delete();
-        }
-        //休日データ取得
-        $data = new Holiday();
-        $list = Holiday::all();
-        return view('calendar.holiday', ['list' => $list , 'data' => $data]);
-
+    
+    /**
+    * Show the form for creating a new resource.
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function create()
+    {
+        //
+    }
+    
+    /**
+    * Store a newly created resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\Response
+    */
+    public function store(Request $request)
+    {
+        //
+    }
+    
+    /**
+    * Display the specified resource.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function show($id)
+    {
+        //
+    }
+    
+    /**
+    * Show the form for editing the specified resource.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function edit($id)
+    {
+        //
+    }
+    
+    /**
+    * Update the specified resource in storage.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+    
+    /**
+    * Remove the specified resource from storage.
+    *
+    * @param  int  $id
+    * @return \Illuminate\Http\Response
+    */
+    public function destroy($id)
+    {
+        //
     }
 }
