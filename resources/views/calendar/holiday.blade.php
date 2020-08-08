@@ -40,8 +40,7 @@
         <td>{{$val->description}}</td>
         <td>{{$val->created_at}}</td>
         <td>{{$val->updated_at}}</td>
-        <td><form action="/holiday" method="post">
-            <input type="hidden" name="id" value="{{$val->id}}">
+        <td><form action="/holiday/{{$val->id}}" method="post">
             {{ method_field('delete') }}
             @csrf
             <button class="btn btn-default" type="submit">削除</button>

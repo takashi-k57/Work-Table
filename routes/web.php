@@ -15,13 +15,17 @@ Route::get('/', function (){
     return view('welcome');
 });
 
-Route::get('works/crete', 'WorkController@index')->middleware('auth');
+// Route::get('works/crete', 'WorkController@index')->middleware('auth');
 
-Route::get('/holiday', 'CalendarController@getHoliday')->middleware('auth');
-Route::POST('/holiday', 'CalendarController@postHoliday')->middleware('auth');
-Route::get('/', 'CalendarController@index')->middleware('auth');;
-Route::get('/holiday/{id}', 'CalendarController@getHolidayId')->middleware('auth');
-Route::delete('/holiday', 'CalendarController@deleteHoliday')->middleware('auth');
+Route::get('/holiday', 'HolidayController@index')->middleware('auth');
+Route::get('/holiday/create', 'HolidayController@create')->middleware('auth');
+Route::post('/holiday', 'HolidayController@store')->middleware('auth');
+Route::put('/holiday/{id}', 'HolidayController@update')->middleware('auth');
+Route::delete('/holiday/{id}', 'HolidayController@destroy')->middleware('auth');
+
+// Route::get('/', 'HolidayController@index')->middleware('auth');;
+// Route::get('/holiday/{id}', 'HolidayController@getHolidayId')->middleware('auth');
+// Route::delete('/holiday', 'HolidayController@deleteHoliday')->middleware('auth');
 
 Auth::routes();
 
