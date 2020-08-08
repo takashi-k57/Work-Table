@@ -13,7 +13,6 @@
 
 Route::get('/', 'CalendarController@index')->middleware('auth');
 Route::get('/holiday', 'HolidayController@index')->middleware('auth');
-Route::get('/holiday/create', 'HolidayController@create')->middleware('auth');
 Route::post('/holiday', 'HolidayController@store')->middleware('auth');
 Route::put('/holiday/{id}', 'HolidayController@update')->middleware('auth');
 Route::delete('/holiday/{id}', 'HolidayController@destroy')->middleware('auth');

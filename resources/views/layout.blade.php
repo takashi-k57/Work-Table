@@ -10,6 +10,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
+    <form action="/logout" method="POST">
+        @csrf
+        <button>ログアウト</button>
+    </form>
 <div class="container">
     @yield('content')
 </div>

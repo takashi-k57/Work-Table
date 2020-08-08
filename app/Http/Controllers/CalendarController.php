@@ -15,7 +15,7 @@ class CalendarController extends Controller
     */
     public function index(Request $request)
     {
-        $list = Holiday::all();
+        $list = Holiday::where('user_id', auth()->user()->id)->get();
         $cal = new Calendar($list);
         $tag = $cal->showCalendarTag($request->month,$request->year);
         

@@ -15,6 +15,7 @@ class Holiday extends Migration{
            $table->increments('id');
            $table->date('day');
            $table->string('description');
+           $table->integer('user_id');
            $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ class Holiday extends Migration{
      * @return void
      */
     public function down(){
-         Schma::drop('holidays');
+         Schema::drop('holidays');
     }
 }
