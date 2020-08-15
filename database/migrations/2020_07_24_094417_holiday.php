@@ -12,7 +12,7 @@ class Holiday extends Migration{
      */
     public function up(){
         Schema::create('holidays', function(Blueprint $table){
-           $table->bigIncrements('user_id');
+           $table->unsignedBigInteger('user_id');
            $table->increments('id');
            $table->date('day');
            $table->string('description');
@@ -27,6 +27,8 @@ class Holiday extends Migration{
      * @return void
      */
     public function down(){
-         Schma::drop('holidays');
+         Schema::drop('holidays', function(Blueprint $table){
+             $table->dropColumn('user_id');
+         });
     }
 }

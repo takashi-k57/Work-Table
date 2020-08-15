@@ -10,7 +10,7 @@ class CalendarController extends Controller //クラス名間違いエラーあ�
 {
     
     public function index(Request $request){
-        $list = Holiday::all();
+        $list = Holiday::where('user_id', auth()->user()->id)->get();
         $cal = new Calendar($list);
         $tag = $cal->showCalendarTag($request->month,$request->year);
 

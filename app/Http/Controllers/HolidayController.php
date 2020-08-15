@@ -14,7 +14,7 @@ class HolidayController extends Controller
     {   
         // 休日データ取得
         $data = new Holiday();
-        $list = Holiday::all();
+        $list = Holiday::where('user_id', auth()->user()->id)->get();
         return view('calendar.holiday', ['list' => $list,'data' => $data]);
     }
    
@@ -25,21 +25,16 @@ class HolidayController extends Controller
             'description' => 'required',
         ]);
         // POSTで受信した休日データの登録
-        if (isset($request->id)) {
-            $holiday = Holiday::where('id', '=', $request->id)->first();
-            $holiday->day = $request->day;
-            $holiday->description = $request->description;        
-            $holiday->save();
-        } else {
             $holiday = new Holiday(); 
             $holiday->day = $request->day;
-            $holiday->description = $request->description;        
+            $holiday->description = $request->description; 
+            $holiday->user_id = auth()->user()->id;      
             $holiday->save();
-        }
+        
         // 休日データ取得
-        $data = new Holiday();
-        $list = Holiday::all();
-        return view('calendar.holiday', ['list' => $list, 'data' => $data]);
+          $data = new Holiday();
+          $list = Holiday::where('user_id', auth()->user()->id)->get();;
+        return view('calendar.holiday', ['list' => $list, 'data' => $data]);;
     }
 
     public function edit($id)
@@ -49,7 +44,7 @@ class HolidayController extends Controller
         if (isset($id)) {
             $data = Holiday::where('id', '=', $id)->first();
         } 
-        $list = Holiday::all();
+        $list = Holiday::where('user_id', auth()->user()->id)->get();;
         return view('calendar.holiday', ['list' => $list, 'data' => $data]);
     }
 
@@ -60,9 +55,10 @@ class HolidayController extends Controller
             $holiday->delete();
         }
         //休日データ取得
-        $data = new Holiday();
-        $list = Holiday::all();
-        return view('calendar.holiday', ['list' => $list , 'data' => $data]);
+          $data = new Holiday();
+          $list = Holiday::where('user_id', auth()->user()->id)->get();;
+        //dd($list);
+        return view('calendar.holiday', ['list' => $list, 'data' => $data]);;
 
     }
 }
