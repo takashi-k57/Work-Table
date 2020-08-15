@@ -16,6 +16,7 @@ Route::get('/holiday', 'HolidayController@index')->middleware('auth');
 Route::post('/holiday', 'HolidayController@store')->middleware('auth');
 Route::put('/holiday/{id}', 'HolidayController@update')->middleware('auth');
 Route::delete('/holiday/{id}', 'HolidayController@destroy')->middleware('auth');
+Route::get('/holiday/{id}', 'HolidayController@edit')->middleware('auth');
 
 Auth::routes();
 

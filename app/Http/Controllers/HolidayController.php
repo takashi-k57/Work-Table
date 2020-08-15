@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Holiday;
-use App\Calendar;
 use Illuminate\Http\Request;
 
 class HolidayController extends Controller
@@ -42,8 +41,8 @@ class HolidayController extends Controller
             ['day' => 'required|date_format:Y-m-d', 'description' => 'required',]
         );
         $holiday = new Holiday();
-        $holiday->day = $request->day;
-        $holiday->description = $request->description;
+        $holiday->day = $validatedData["day"];
+        $holiday->description = $validatedData["description"];
         $holiday->user_id = auth()->user()->id;
         $holiday->save();
         
@@ -69,7 +68,9 @@ class HolidayController extends Controller
     */
     public function edit($id)
     {
-        //
+        // 休日データ取得
+        $data = Holiday::find($id);
+        return view('calendar.edit', ['data' => $data, 'id' => $id]);
     }
     
     /**
@@ -81,7 +82,14 @@ class HolidayController extends Controller
     */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate(
+            ['day' => 'required|date_format:Y-m-d', 'description' => 'required',]
+        );
+        $holiday = Holiday::find($id);
+        $holiday->day = $validatedData['day'];
+        $holiday->description = $validatedData['description'];
+        $holiday->save();
+        return redirect('/holiday');
     }
     
     /**
@@ -92,11 +100,7 @@ class HolidayController extends Controller
     */
     public function destroy($id)
     {
-        //Deleteで受信した休日データの削除
-        if(isset($id)){
-            $holiday = Holiday::where('id', '=', $id)->first();
-            $holiday->delete();
-        }
+        Holiday::destroy($id);
         return redirect('/holiday');
     }
 }
