@@ -2,6 +2,9 @@
 @section('title', 'カレンダー')
 @section('content')
     {!!$cal_tag!!}
+    @if(auth()->user()->is_admin)
+    管理者用画面
+    @endif
 @endsection
 <a href="{{ url('/holiday') }}">休日設定</a>
 
