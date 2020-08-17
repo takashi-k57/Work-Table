@@ -10,6 +10,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
+<nav class="nav">
+  <a class="nav-link active" href="{{ url('/') }}">Home</a>
+  <a class="nav-link" href="{{ url('/holiday') }}">勤務・休日設定</a>
+  <a class="nav-link" href="#">その他</a>
+  <a class="nav-link disabled">ログアウト</a>
+</nav>
+   
+<form action="/logout" method="POST">
+        @csrf
+        <button>ログアウト</button>
+    </form>
+
 <div class="container">
     @yield('content')
 </div>

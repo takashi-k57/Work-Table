@@ -18,7 +18,6 @@ Route::get('works/crete', 'WorkController@index')->middleware('auth');
 Route::group(['middleware' => 'auth'],function(){
     Route::get('/holiday', 'HolidayController@create');
     Route::POST('/holiday', 'HolidayController@store');
-    Route::get('/holiday/{id}', 'HolidayController@edit');
     Route::delete('/holiday', 'HolidayController@destroy');
     Route::get('/', 'CalendarController@index')->name('new');
 });

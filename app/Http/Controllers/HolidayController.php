@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Holiday;
 use App\Calendar;
 use Illuminate\Http\Request;
@@ -25,27 +26,32 @@ class HolidayController extends Controller
             'description' => 'required',
         ]);
         // POSTで受信した休日データの登録
-            $holiday = new Holiday(); 
+            $holiday = new Holiday();
+            
             $holiday->day = $request->day;
-            $holiday->description = $request->description; 
-            $holiday->user_id = auth()->user()->id;      
+            $holiday->description = $request->description;
+            $holiday->user_id = auth()->user()->id;
             $holiday->save();
-        
-        // 休日データ取得
-          $data = new Holiday();
-          $list = Holiday::where('user_id', auth()->user()->id)->get();;
-        return view('calendar.holiday', ['list' => $list, 'data' => $data]);;
+            
+           return redirect('/holiday');
+         // 休日データ取得
+         //$data = new Holiday();
+         //$list = Holiday::where('user_id', auth()->user()->id)->get();
+         //return view('calendar.holiday', ['list' => $list,'data' => $data]);
     }
 
     public function edit($id)
     {
-        // 休日データ取得
-        $data = new Holiday();
-        if (isset($id)) {
-            $data = Holiday::where('id', '=', $id)->first();
-        } 
-        $list = Holiday::where('user_id', auth()->user()->id)->get();;
-        return view('calendar.holiday', ['list' => $list, 'data' => $data]);
+        
+        
+        
+    }
+
+    public function update(Request $request, $id)
+    {
+        
+        
+        
     }
 
     public function destroy(Request $request){
@@ -58,7 +64,7 @@ class HolidayController extends Controller
           $data = new Holiday();
           $list = Holiday::where('user_id', auth()->user()->id)->get();;
         //dd($list);
-        return view('calendar.holiday', ['list' => $list, 'data' => $data]);;
+        return redirect('/holiday');
 
     }
 }

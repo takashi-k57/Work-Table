@@ -39,7 +39,6 @@
         <th scope="row"><a href="{{ url('/holiday/'.$val->id) }}">{{$val->day}}</a></th>
         <td>{{$val->description}}</td>
         <td>{{$val->created_at}}</td>
-        <td>{{$val->updated_at}}</td>
         <td><form action="/holiday" method="post">
             <input type="hidden" name="id" value="{{$val->id}}">
             {{ method_field('delete') }}
@@ -56,4 +55,6 @@
      $( "#day" ).datepicker({dateFormat: 'yy-mm-dd'});
     } );
     </script>
+    
+
 @endsection
