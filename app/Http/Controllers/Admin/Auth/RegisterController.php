@@ -38,7 +38,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest:admin');
     }
 
     /**
@@ -73,8 +73,12 @@ class RegisterController extends Controller
 
     public function showLoginForm()
     {
-        return redirect('admin.login');
+        return view('admin.register');
     }
 
+    protected function guard()
+    {
+     return  Auth::guard('admin'); 
+    }
 
 }

@@ -6,7 +6,7 @@
     <h2 class="title">勤務表（管理者用）にログイン</h2>
     <div class="text-center m-3">or</div>
     <div class="text-center">
-      <p class="acountPage_link"><a href="{{ route('admin.login') }}">管理者アカウントを作成</a></p>
+      <p class="acountPage_link"><a href="{{ route('admin.register') }}">管理者アカウントを作成</a></p>
     </div>
     <form class="new_user" id="new_user" action="{{ route('admin.login') }}" accept-charset="UTF-8" method="post">
      @csrf
