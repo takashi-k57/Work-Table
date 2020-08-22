@@ -14,7 +14,7 @@ class CalendarController extends Controller //クラス名間違いエラーあ�
         $cal = new Calendar($list);
         $tag = $cal->showCalendarTag($request->month,$request->year);
 
-        return view('calendar.index', ['cal_tag' => $tag]);
+        return view('calendar.index', ['cal_tag' => $tag, 'holidays' => Holiday::all()]);
 
     }
    

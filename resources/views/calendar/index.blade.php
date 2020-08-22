@@ -3,7 +3,11 @@
 @section('content')
     {!!$cal_tag!!}
     @if(auth()->user()->is_admin)
-    管理者用画面
+        全員の休日登録リストを表示します<br>
+        @foreach($holidays as $holiday)
+            {{ $holiday->user_id }}<br>
+            {{ $holiday->day }}<br>
+        @endforeach
     @endif
 @endsection
 <a href="{{ url('/holiday') }}">休日設定</a>
