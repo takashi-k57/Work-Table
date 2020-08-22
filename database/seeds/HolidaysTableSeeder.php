@@ -22,7 +22,7 @@ class HolidaysTableSeeder extends Seeder
         DB::table('holidays')->insert([
             'user_id' => 2,
             'id' => 2,
-            'day' => '2020-08-19',
+            'day' => '2020-08-18',
             'description' => '有休',
             'created_at' => '2020-08-20',
         ]);
