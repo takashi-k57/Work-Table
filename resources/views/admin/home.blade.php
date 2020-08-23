@@ -23,7 +23,7 @@
                     </tr>
                     @foreach($users as $user)
                         <tr>
-                            @include('admin.td2', ['user' => $user, 'first_day' => $first_day])
+                            @include('admin.td2')
                         </tr>
                     @endforeach
                 </table>
