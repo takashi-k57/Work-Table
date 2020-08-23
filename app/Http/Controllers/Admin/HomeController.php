@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Holiday;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -24,6 +26,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.home');
+        $now = new \DateTime(); 
+        $first_day = new \DateTime($now->format('y-m-01')); 
+        $last_day = new \DateTime($now->format('y-m-t')); 
+        $day = new \DateTime($now->format('y-m-t')); 
+        $day->sub(new \DateInterval('P1M')); 
+
+        return view('admin.home', [
+             'users' => new User,
+             'holidays' => new Holiday,
+             'day' => $day,
+             'first_day' => $first_day,
+             'last_day' => $last_day,
+             ]);
     }
 }

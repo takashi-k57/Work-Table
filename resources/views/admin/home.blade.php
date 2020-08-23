@@ -1,23 +1,25 @@
-@extends('layouts.app_admin')
+@extends('admin.home_base')
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+@section('td1')
+    @while($day != $last_day)
+    <td style="border:1px solid black; padding:1em;">{{ $day->add(new \dateInterval('P1D'))->format('d') }}</td>
+    @endwhile
+@endsection
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+@section('td2')
+    <?php 
+    dd($users);
+    $day = $first_day;
+    $day->sub(new \DateInterval('P1D'));
+    ?>
+    @while($day != $last_day)
+    <?php $day->add(new \dateInterval('P1D')); ?>
+    <td style="border:1px solid black; padding:1em;">
+        @foreach($holidays->where('user_id',$user->id)->get() as $holiday)
+            @if($day->format('Y-m-d') == $holiday->day)
+                {{ $holiday->description }}
+            @endif
+        @endforeach
+    </td>
+    @endwhile
 @endsection
