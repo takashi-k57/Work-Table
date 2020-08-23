@@ -33,7 +33,7 @@ class HomeController extends Controller
         $day->sub(new \DateInterval('P1M')); 
 
         return view('admin.home', [
-             'users' => new User,
+             'users' => User::all(),
              'holidays' => new Holiday,
              'day' => $day,
              'first_day' => $first_day,
