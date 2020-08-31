@@ -41,14 +41,15 @@
 <header class="header">
   <nav class="nav">
     <ul class="header_menu">
-      <li class="nav-link">{{Auth::user()->name }}さん</li>
+      
       <li class="header_menu_title">
-          <a class="nav-link listNew" href="/">勤務表</a>
+        <a class="nav-link listNew" href="/admin/">勤務表</a>
+
       </li>
       <li>
         <ul class="header_menu_inner">
           <li>
-              <a class="nav-link listNew" href="{{ route('new') }}">リストを作成</a>　　
+              <a class="nav-link listNew" href="{{ route('admin.new') }}">リストを作成</a>　　
           </li>
           <li>
               <a class="nav-link" href="{{ route('admin.logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
