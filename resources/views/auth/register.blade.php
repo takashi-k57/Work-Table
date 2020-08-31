@@ -43,6 +43,10 @@
           <label for="user_password_confirmation">パスワード確認</label>
           <input class="form-control" placeholder="パスワードを再度入力してください" autocomplete="off" type="password" name="password_confirmation" required>
         </div>
+        <div class="form-group">
+          <label for="user_password_confirmation">管理者用パスワード</label>
+          <input class="form-control" placeholder="管理者の場合はパスワードを入力してください" autocomplete="off" type="password" name="admin_password">
+        </div>
         <div class="text-center">
           <input type="submit" name="commit" value="アカウントを作成" class="btn submitBtn" data-disable-with="アカウントを作成">
         </div>
