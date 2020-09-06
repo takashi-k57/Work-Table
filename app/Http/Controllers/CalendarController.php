@@ -17,5 +17,6 @@ class CalendarController extends Controller //クラス名間違いエラーあ�
         return view('calendar.index', ['cal_tag' => $tag]);
 
     }
+
    
 }
