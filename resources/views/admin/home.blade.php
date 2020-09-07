@@ -19,13 +19,16 @@
 
                 <table>
                     <tr>
+                        <td style="border:1px solid black; padding:1em;"></td>
                         @include('admin.td1')
                     </tr>
                     <tr>
+                        <td style="border:1px solid black; padding:1em;"></td>
                         @include('admin.td3')
                     </tr>
                     @foreach($users as $user)
                         <tr>
+                            <td style="border:1px solid black; padding:1em;">{{ $user->name }}</td>
                             @include('admin.td2')
                         </tr>
                     @endforeach
