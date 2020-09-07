@@ -16,22 +16,22 @@ class HolidaysTableSeeder extends Seeder
     {
         DB::table('holidays')->insert([
             'user_id' => 1,
-            'day' => '2020-08-01',
+            'day' => '2020-09-01',
             'description' => '有給',
         ]);
         DB::table('holidays')->insert([
             'user_id' => 2,
-            'day' => '2020-08-02',
+            'day' => '2020-09-02',
             'description' => '有給',
         ]);
         DB::table('holidays')->insert([
             'user_id' => 3,
-            'day' => '2020-08-03',
+            'day' => '2020-09-03',
             'description' => '有給',
         ]);
         DB::table('holidays')->insert([
             'user_id' => 4,
-            'day' => '2020-08-04',
+            'day' => '2020-09-04',
             'description' => '有給',
         ]);
     }
