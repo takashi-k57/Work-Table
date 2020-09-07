@@ -11,6 +11,11 @@
     @foreach($users as $user)
     <tr>
       <th>{{$user -> name}}</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
     </tr>
     @endforeach
   </table>
