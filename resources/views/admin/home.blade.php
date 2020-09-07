@@ -21,6 +21,9 @@
                     <tr>
                         @include('admin.td1')
                     </tr>
+                    <tr>
+                        @include('admin.td3')
+                    </tr>
                     @foreach($users as $user)
                         <tr>
                             @include('admin.td2')
