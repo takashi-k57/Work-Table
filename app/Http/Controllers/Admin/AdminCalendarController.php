@@ -17,11 +17,12 @@ class AdminCalendarController extends Controller
         $cal = new Calendar($list);
         $tag = $cal->showCalendarTag($request->month,$request->year);
         $users = User::all();
-        $day = Carbon::now();
-        $today = new Carbon();
-        $weekdays = array('日','月','火','水','木','金','土');
+        $now = Carbon::now();
+        $current_month = Carbon::createFromDate($now->year, $now->month, 1, 'Asia/Tokyo');
+        $current_month_weekday = $current_month->dayOfWeek;
+        $weekdays = ['日','月','火','水','木','金','土'];
 
-        return view('admincalendar.index', ['cal_tag' => $tag, 'users' => $users, 'day' => $day, 'weekdays' => $weekdays, 'today' => $today]);
+        return view('admincalendar.index', ['cal_tag' => $tag, 'users' => $users, 'day' => $now, 'weekdays' => $weekdays, 'current_month' => $current_month, 'current_month_weekday' => $current_month_weekday]);
 
     }
    
