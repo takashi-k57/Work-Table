@@ -7,16 +7,17 @@ class dayIterator implements \Iterator {
     public $day;
     public $first_day;
     public $last_day;
-    public $syukujitsus;
-    public $is_holiday;
+    public $public_holidays;
+    public $is_holiday = false;
+    public $is_public_holiday = false;
 
     public function __construct() {
         $now = new \DateTime(); 
         $this->first_day = new \DateTime($now->format('y-m-01')); 
         $this->last_day = new \DateTime($now->format('y-m-t')); 
         $this->day = clone $this->first_day;
-        foreach ( file( resource_path('csv/syukujitsu.csv') ) as $syukujitsu ) {
-            $this->syukujitsus[] = new DateTime($syukujitsu);
+        foreach ( file( resource_path('csv/syukujitsu.csv') ) as $public_holiday ) {
+            $this->public_holidays[] = new DateTime($public_holiday);
         }
     }
 
@@ -34,12 +35,13 @@ class dayIterator implements \Iterator {
     public function next() {
         $this->day->add(new \DateInterval('P1D'));
 
-        // 祝日でも日曜日でもなければfalse
+        $this->is_public_holiday = false;
         $this->is_holiday = false;
+
         // 祝日の判定
-        foreach($this->syukujitsus as $syukujitsu) {
-            if($this->day == $syukujitsu) {
-                $this->is_holiday = true;        
+        foreach($this->public_holidays as $public_holiday) {
+            if($this->day == $public_holiday) {
+                $this->is_public_holiday = true;        
             }
         }
         // 日曜日の判定
