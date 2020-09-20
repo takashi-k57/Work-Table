@@ -34,5 +34,15 @@ class HolidaysTableSeeder extends Seeder
             'day' => '2020-09-04',
             'description' => '有給',
         ]);
+
+        $dayIterator = new App\dayIterator;
+        foreach($dayIterator as $dayobj) {
+            if($dayobj->is_holiday) {
+                DB::table('holidays')->insert([
+                    'day' =>  $dayobj->day->format('Y-m-d'),
+                    'description' => '公休',
+                ]);
+            }
+        }
     }
 }
