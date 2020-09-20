@@ -5,6 +5,8 @@
   @foreach($holidays->where('user_id',$user->id)->get() as $holiday)
     @if($dayobj->day->format('Y-m-d') == $holiday->day)
       {{ $holiday->description }}
+    @elseif($dayobj->day->format('D') == 'Sun')
+      公休 
     @endif
   @endforeach
   </td>
