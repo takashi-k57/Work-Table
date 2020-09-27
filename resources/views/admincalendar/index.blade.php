@@ -1,18 +1,29 @@
 @extends('adminlayout')
 @section('title', 'カレンダー')
 @section('content')
-{{ $current_month->format('Y-m') . '-' . sprintf('%02d', 1) }}
+
+@php
+print_r($isHolidays);
+@endphp
 <table border="1"> 
     <tr>
       <th></th>
      @for ($i = 1; $i <= $current_month->daysInMonth; $i++)
-      <th>{{$i}}</th>
+      @if (array_search($current_month->format('Y-m') . '-' . sprintf('%02d', $i), $isHolidays))
+        <th bgcolor="red">{{$i}}</th>
+      @else
+        <th>{{$i}}</th>
+      @endif
      @endfor
     </tr>
     <tr>
       <td>
      @for ($i = 1; $i <= $current_month->daysInMonth; $i++)
-      <td>{{$weekdays[($current_month_weekday++)%7]}}</td>
+      @if ($current_month_weekday%7 == 0)
+        <td bgcolor="blue">{{$weekdays[($current_month_weekday++)%7]}}</td>
+      @else
+        <td>{{$weekdays[($current_month_weekday++)%7]}}</td>
+      @endif
      @endfor
     </tr>
 　　@foreach ($users as $user)
