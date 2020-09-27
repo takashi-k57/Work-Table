@@ -20,7 +20,6 @@ class AdminCalendarController extends Controller
         $current_month = Carbon::createFromDate($now->year, $now->month, 1, 'Asia/Tokyo');
         $current_month_weekday = $current_month->dayOfWeek;
         $weekdays = ['日','月','火','水','木','金','土'];
-
         return view('admincalendar.index', ['users' => $users, 'day' => $now, 'weekdays' => $weekdays, 'current_month' => $current_month, 'current_month_weekday' => $current_month_weekday, 'isHolidays' => $isHolidays]);
 
     }
