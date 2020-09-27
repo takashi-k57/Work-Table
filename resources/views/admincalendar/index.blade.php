@@ -41,17 +41,19 @@
     @endphp
   　　<th>{{$user -> name}}</th>
      @for ($i = 1; $i <= $current_month->daysInMonth; $i++)
-     @if ($weekday++%7 == 0)
+     @if ($weekday%7 == 0)
         <td bgcolor="#FFCC33">
       @elseif (array_search($current_month->format('Y-m') . '-' . sprintf('%02d', $i), $isHolidays))
         <td bgcolor="#FF3333">
       @else
         <td>
       @endif
-      @if (!empty($user->holidays))
+      @if ($weekday++%7 == 0)
+      公
+      @elseif (!empty($user->holidays))
       @foreach ($user->holidays as $holiday)
        @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $holiday->day )
-        {{ $holiday -> description }}
+        {{ $holiday -> description }} 
        @endif
       @endforeach
       @endif
