@@ -35,12 +35,17 @@ class HolidaysTableSeeder extends Seeder
             'description' => '有給',
         ]);
 
-        $dayIterator = new App\dayIterator;
+        $dayIterator = new App\dayIterator('year');
         foreach($dayIterator as $dayobj) {
-            if($dayobj->is_holiday) {
+            if($dayobj->is_sunday) {
                 DB::table('holidays')->insert([
                     'day' =>  $dayobj->day->format('Y-m-d'),
                     'description' => '公休',
+                ]);
+            }else if($dayobj->is_public_holiday) {
+                DB::table('holidays')->insert([
+                    'day' =>  $dayobj->day->format('Y-m-d'),
+                    'description' => '祝日',
                 ]);
             }
         }

@@ -15,7 +15,7 @@ class HolidayController extends Controller
     {   
         // 休日データ取得
         $data = new Holiday();
-        $list = Holiday::where('user_id', auth()->user()->id)->get();
+        $list = Holiday::getSundayHoliday();
         return view('calendar.holiday', ['list' => $list,'data' => $data]);
     }
    
