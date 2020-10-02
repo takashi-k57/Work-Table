@@ -39,6 +39,7 @@
 　　@foreach ($users as $user)
       @php
         $holiday_count = 0;
+        $holiday_count2 = null;
       @endphp
 　　<tr>
     @php
@@ -47,6 +48,7 @@
   　　<th>{{$user -> name}}</th>
      @for ($i = 1; $i <= $current_month->daysInMonth; $i++)
         @php
+          $works = $current_month->daysInMonth - $holiday_count - $holiday_count2;
           $holiday_flag = false;
         @endphp
         @if ($weekday%7 == 0)
@@ -70,15 +72,19 @@
                 @php
                   $holiday_count = $holiday_count + 1;
                 @endphp
+              @else($holiday -> description == '有休')
+                @php
+                  $holiday_count2 = $holiday_count2 + 1;
+                @endphp
               @endif
            @endif
           @endforeach
         @endif
           </td>
      @endfor
-     <th></th>
+     <th>{{$works}}</th>
      <th>{{$holiday_count}}</th>
-     <th></th>
+     <th>{{$holiday_count2}}</th>
      <th></th>
     </tr>
     @endforeach
