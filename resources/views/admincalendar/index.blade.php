@@ -1,8 +1,6 @@
 @extends('adminlayout')
 @section('title', 'カレンダー')
 @section('content')
-
-
 <table border="1"> 
     <tr>
     @php
@@ -10,7 +8,7 @@
     @endphp
       <th></th>
      @for ($i = 1; $i <= $current_month->daysInMonth; $i++)
-     @if ($weekday++%7 == 0)
+      @if ($weekday++%7 == 0)
         <th bgcolor="#FFCC33">{{$i}}</th>
       @elseif (array_search($current_month->format('Y-m') . '-' . sprintf('%02d', $i), $isHolidays))
         <th bgcolor="#FF3333">{{$i}}</th>
@@ -18,6 +16,10 @@
         <th>{{$i}}</th>
       @endif
      @endfor
+     <th rowspan="2">日勤</th>
+     <th rowspan="2">公休</th>
+     <th rowspan="2">有休</th>
+     <th rowspan="2">代休</th>
     </tr>
     <tr>
     @php
@@ -35,33 +37,50 @@
      @endfor
     </tr>
 　　@foreach ($users as $user)
+      @php
+        $holiday_count = 0;
+      @endphp
 　　<tr>
     @php
        $weekday = $current_month_weekday;
     @endphp
   　　<th>{{$user -> name}}</th>
      @for ($i = 1; $i <= $current_month->daysInMonth; $i++)
-     @if ($weekday%7 == 0)
-        <td bgcolor="#FFCC33">
-      @elseif (array_search($current_month->format('Y-m') . '-' . sprintf('%02d', $i), $isHolidays))
-        <td bgcolor="#FF3333">
-      @else
-        <td>
-      @endif
-      @if ($weekday++%7 == 0)
-      公
-      @elseif (!empty($user->holidays))
-      @foreach ($user->holidays as $holiday)
-       @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $holiday->day )
-        {{ $holiday -> description }} 
-       @endif
-      @endforeach
-      @endif
-      </td>
+        @php
+          $holiday_flag = false;
+        @endphp
+        @if ($weekday%7 == 0)
+          <td bgcolor="#FFCC33">
+          @php
+            $holiday_count = $holiday_count + 1;
+            $holiday_flag = true;
+          @endphp
+        @elseif (array_search($current_month->format('Y-m') . '-' . sprintf('%02d', $i), $isHolidays))
+          <td bgcolor="#FF3333">
+        @else
+          <td>
+        @endif
+        @if ($weekday++%7 == 0)
+            公
+        @elseif (!empty($user->holidays))
+          @foreach ($user->holidays as $holiday)
+            @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $holiday->day )
+              {{ $holiday -> description }} 
+              @if ($holiday -> description == '公休' && $holiday_flag == false)
+                @php
+                  $holiday_count = $holiday_count + 1;
+                @endphp
+              @endif
+           @endif
+          @endforeach
+        @endif
+          </td>
      @endfor
+     <th></th>
+     <th>{{$holiday_count}}</th>
+     <th></th>
+     <th></th>
     </tr>
     @endforeach
-    
-  
   </table>
 @endsection
