@@ -49,7 +49,6 @@
   　　<th>{{$user -> name}}</th>
      @for ($i = 1; $i <= $current_month->daysInMonth; $i++)
         @php
-          $works = $current_month->daysInMonth - $holiday_count - $holiday_count2 - $holiday_count3;
           $holiday_flag = false;
         @endphp
         @if ($weekday%7 == 0)
@@ -69,24 +68,17 @@
           @foreach ($user->holidays as $holiday)
             @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $holiday->day )
               {{ $holiday -> description }} 
-              @if ($holiday -> description == '公休' && $holiday_flag == false)
-                @php
-                  $holiday_count = $holiday_count + 1;
-                @endphp
-              @elseif($holiday -> description == '有休')
-                @php
-                  $holiday_count2 = $holiday_count2 + 1;
-                @endphp
-              @else($holiday -> description == '代休')
-                @php
-                  $holiday_count3 = $holiday_count3 + 1;
-                @endphp   
-              @endif
            @endif
           @endforeach
         @endif
           </td>
      @endfor
+     @php
+     $holiday_count = $holiday_count + $user->kokyu($current_month->year, $current_month->month);
+     $holiday_count2 = $user->yukyu($current_month->year, $current_month->month);
+     $holiday_count3 = $user->daikyu($current_month->year, $current_month->month);
+     $works = $current_month->daysInMonth - $holiday_count - $holiday_count2 - $holiday_count3;
+     @endphp
      <th>{{$works}}</th>
      <th>{{$holiday_count}}</th>
      <th>{{$holiday_count2}}</th>
