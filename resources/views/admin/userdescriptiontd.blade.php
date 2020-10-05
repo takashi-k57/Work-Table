@@ -16,7 +16,7 @@
     {{ $holidays::getShiftDayNums($user, $dayIterator) }}
 </td>
 <td style="border:1px solid black; padding:1em;">
-    {{ $holidays::getSunDayNums($dayIterator) }}
+    {{ $holidays::getSunDayNums($user, $dayIterator) }}
 </td>
 <td style="border:1px solid black; padding:1em;">
     {{ $holidays::getHoliDayNums($user, $dayIterator) }}

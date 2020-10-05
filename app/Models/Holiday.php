@@ -12,7 +12,7 @@ class Holiday extends Model
     public static function getSundayHoliday(User $user, dayIterator $dayIterator) {
 
         return array_merge(
-            self::getSunday($dayIterator),
+            self::getSunday($user, $dayIterator),
             self::getHoliday($user, $dayIterator)
          );
     }
@@ -28,12 +28,16 @@ class Holiday extends Model
         return $month_days - $holidays;
     }
     
-    public static function getSunday(dayIterator $dayIterator) {
+    public static function getSunday(User $user, dayIterator $dayIterator) {
+        $holidays = [];
         foreach($dayIterator as $dayobj) {
-            foreach( self::where('description', '公休')->get() as $public_holiday) {
+            foreach( self::where( 'description', '公休' )->where( 'user_id', $user->id )->get() as $public_holiday) {
                 if( $public_holiday->day == $dayobj->day->format('Y-m-d') ) {
                     $holidays[] = $public_holiday->day;
                 }
+            }
+            if( $dayobj->is_sunday ){
+                $holidays[] = $dayobj->day;
             }
         } 
 
@@ -78,8 +82,8 @@ class Holiday extends Model
         return (float)$count;
     }
 
-    public static function getSundayNums(dayIterator $dayIterator) {
-        return count(self::getSunday($dayIterator));
+    public static function getSundayNums(User $user, dayIterator $dayIterator) {
+        return count(self::getSunday($user, $dayIterator));
     }
 
 
