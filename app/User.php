@@ -39,7 +39,5 @@ class User extends Authenticatable
 
     public function Holidays() {
         return $this->hasMany('App\Holiday');
-    }
-
-    
+    }    
 }
