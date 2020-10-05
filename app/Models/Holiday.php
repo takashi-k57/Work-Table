@@ -71,7 +71,7 @@ class Holiday extends Model
         foreach( self::getHolidayObj($user, $dayIterator) as $holiday) {
             if( $holiday->description == '有給' ) {
                 $count += 1;
-            }elseif( $holiday->description == '半休' ) {
+            }elseif( $holiday->description == '半休' || $holiday->description == '半有' ) {
                 $count += 0.5;
             }
         } 
