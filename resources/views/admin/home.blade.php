@@ -24,6 +24,7 @@
                         <td style="border:1px solid black; padding:1em;" rowspan="2">日勤</td>
                         <td style="border:1px solid black; padding:1em;" rowspan="2">公休</td>
                         <td style="border:1px solid black; padding:1em;" rowspan="2">有給</td>
+                        <td style="border:1px solid black; padding:1em;" rowspan="2">代休</td>
                     </tr>
                     <tr>
                         <td style="border:1px solid black; padding:1em;"></td>

@@ -21,3 +21,6 @@
 <td style="border:1px solid black; padding:1em;">
     {{ $holidays::getHoliDayNums($user, $dayIterator) }}
 </td>
+<td style="border:1px solid black; padding:1em;">
+    {{ $holidays::getCompensationDayNums($user, $dayIterator) }}
+</td>

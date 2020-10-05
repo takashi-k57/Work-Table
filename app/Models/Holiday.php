@@ -81,4 +81,15 @@ class Holiday extends Model
     public static function getSundayNums(dayIterator $dayIterator) {
         return count(self::getSunday($dayIterator));
     }
+
+
+    public static function getCompensationDayNums(User $user, dayIterator $dayIterator) {
+        $count = 0;
+        foreach( self::getHolidayObj($user, $dayIterator) as $holiday) {
+            if( $holiday->description == '代休' ) {
+                $count += 1;
+            }
+        } 
+        return (float)$count;
+    }
 }
