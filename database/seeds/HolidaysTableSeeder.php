@@ -20,6 +20,11 @@ class HolidaysTableSeeder extends Seeder
             'description' => '有給',
         ]);
         DB::table('holidays')->insert([
+            'user_id' => 1,
+            'day' => '2020-10-02',
+            'description' => '半給',
+        ]);
+        DB::table('holidays')->insert([
             'user_id' => 2,
             'day' => '2020-10-02',
             'description' => '有給',
