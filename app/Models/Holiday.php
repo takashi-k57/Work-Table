@@ -28,7 +28,7 @@ class Holiday extends Model
         return $month_days - $holidays;
     }
     
-    public static function getSunday($dayIterator) {
+    public static function getSunday(dayIterator $dayIterator) {
         foreach($dayIterator as $dayobj) {
             foreach( self::where('description', '公休')->get() as $public_holiday) {
                 if( $public_holiday->day == $dayobj->day->format('Y-m-d') ) {
