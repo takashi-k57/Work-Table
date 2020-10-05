@@ -8,8 +8,14 @@
     @csrf   
     <label for="day">日付[YYYY/MM/DD] </label>
     <input type="text" name="day" class="form-control" id="day" value="{{$data->day}}">
-    <label for="description">説明</label>
-    <input type="text" name="description" class="form-control" id="description" value="{{$data->description}}"> 
+    <label for="description">説明</label> 
+    <select name="description" id="description">
+        <option value="">選択してください</option>
+        <option value="有給">有給</option>
+        <option value="公休">公休</option>
+        <option value="半休">半休</option>
+        <option value="半有">半有</option>
+    </select>
     </div>
     <button type="submit" class="btn btn-primary">登録</button> 
     <input type="hidden" name="id" value="{{$data->id}}">
