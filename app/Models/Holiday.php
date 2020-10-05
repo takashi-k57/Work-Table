@@ -10,5 +10,9 @@ class Holiday extends Model
     public static function getSundayHoliday() {
         return self::where('user_id', auth()->user()->id)->OrWhere('description', '公休')->get();
     }
+
+    public function users() {
+        return $this->belongsTo('App\User');
+    }
     
 }
