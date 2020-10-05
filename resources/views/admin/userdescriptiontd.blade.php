@@ -4,6 +4,7 @@
   style="border:1px solid black; padding:1em;">
   
   @foreach($user->holidays as $holiday)
+    {{ dd($holiday->getSundayHoliday($user)) }}
     @if($holiday->day == $dayobj->day->format('Y-m-d'))
       {{ $holiday->description }}
     @endif

@@ -7,8 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Holiday extends Model
 {
     // ユーザーが登録した休日と公休（日曜日）を取得する
-    public static function getSundayHoliday() {
-        return self::where('user_id', auth()->user()->id)->OrWhere('description', '公休')->get();
+    public function getSundayHoliday(User $user) {
+        foreach( $user->holidays as $holiday ) {
+            $holidays[] = $holiday->day;
+        }
+
+        foreach( self::where('description', '公休')->get() as $public_holiday) {
+            $holidays[] = $public_holiday->day;
+        }
+
+        return $holidays;
     }
 
     public function users() {
