@@ -40,8 +40,21 @@ class Holiday extends Model
         return $holidays;
     }
 
+    public static function getHolidayObj(User $user, dayIterator $dayIterator) {
+        foreach( $dayIterator as $dayobj ) {
+
+            foreach( $user->holidays as $holiday ) {
+                if( $holiday->day == $dayobj->day->format('Y-m-d') ) {
+                    $holidays[] = $holiday;
+                }
+            }
+        } 
+
+        return $holidays;
+    }
+
     public static function getHoliday(User $user, dayIterator $dayIterator) {
-        foreach($dayIterator as $dayobj) {
+        foreach( $dayIterator as $dayobj ) {
 
             foreach( $user->holidays as $holiday ) {
                 if( $holiday->day == $dayobj->day->format('Y-m-d') ) {
@@ -54,7 +67,15 @@ class Holiday extends Model
     }
 
     public static function getHolidayNums(User $user, dayIterator $dayIterator) {
-        return count(self::getHoliday($user, $dayIterator));
+        $count = 0;
+        foreach( self::getHolidayObj($user, $dayIterator) as $holiday) {
+            if( $holiday->description == '有給' ) {
+                $count += 1;
+            }elseif( $holiday->description == '半休' ) {
+                $count += 0.5;
+            }
+        } 
+        return (float)$count;
     }
 
     public static function getSundayNums(dayIterator $dayIterator) {
