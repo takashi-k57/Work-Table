@@ -26,6 +26,8 @@ class dayIterator implements \Iterator {
 
     public function rewind() {
         $this->day = clone $this->first_day;
+        $this->is_sunday = false;
+        $this->is_public_holiday = false;
     }
 
     public function current() {

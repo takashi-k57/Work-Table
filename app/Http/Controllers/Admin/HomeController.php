@@ -28,10 +28,6 @@ class HomeController extends Controller
     public function index()
     {
         $dayIterator = new dayIterator();
-        // foreach($di as $d){
-        //     dump($d);
-        // }
-        // dd($di = new dayIterator());
 
         $now = new \DateTime(); 
         $first_day = new \DateTime($now->format('y-m-01')); 
