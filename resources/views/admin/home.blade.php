@@ -20,16 +20,16 @@
                 <table>
                     <tr>
                         <td style="border:1px solid black; padding:1em;"></td>
-                        @include('admin.td1')
+                        @include('admin.daytd')
                     </tr>
                     <tr>
                         <td style="border:1px solid black; padding:1em;"></td>
-                        @include('admin.td3')
+                        @include('admin.dayofweektd')
                     </tr>
                     @foreach($users as $user)
                         <tr>
                             <td style="border:1px solid black; padding:1em;">{{ $user->name }}</td>
-                            @include('admin.td2')
+                            @include('admin.userdescriptiontd')
                         </tr>
                     @endforeach
                 </table>

@@ -8,7 +8,7 @@
     @csrf   
     <label for="day">日付[YYYY/MM/DD] </label>
     <input type="text" name="day" class="form-control" id="day" value="{{$data->day}}">
-    <label for="description">説明</label> 
+    <label for="description">説明</label><br>
     <select name="description" id="description">
         <option value="">選択してください</option>
         <option value="有給">有給</option>
