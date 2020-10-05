@@ -11,3 +11,6 @@
   @endforeach
   </td>
 @endforeach
+<td>
+    {{ App\Holiday::getShiftDays($user, $dayIterator) }}
+</td>
