@@ -11,12 +11,12 @@
   @endforeach
   </td>
 @endforeach
-<td>
+<td style="border:1px solid black; padding:1em;">
     {{ App\Holiday::getShiftDayNums($user, $dayIterator) }}
 </td>
-<td>
+<td style="border:1px solid black; padding:1em;">
     {{ App\Holiday::getSunDayNums($dayIterator) }}
 </td>
-<td>
+<td style="border:1px solid black; padding:1em;">
     {{ App\Holiday::getHoliDayNums($user, $dayIterator) }}
 </td>
