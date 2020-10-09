@@ -17,13 +17,13 @@ class HolidaysTableSeeder extends Seeder
         DB::table('holidays')->insert([
             'user_id' => 1,
             'day' => '2020-10-02',
-            'description' => '公休',
+            'description' => '公',
         ]);
 
         DB::table('holidays')->insert([
             'user_id' => 1,
             'day' => '2020-10-03',
-            'description' => '有休',
+            'description' => '有',
         ]);
 
         DB::table('holidays')->insert([
@@ -41,7 +41,7 @@ class HolidaysTableSeeder extends Seeder
         DB::table('holidays')->insert([
             'user_id' => 2,
             'day' => '2020-10-07',
-            'description' => '公休',
+            'description' => '公',
         ]);
 
         DB::table('holidays')->insert([
@@ -53,13 +53,13 @@ class HolidaysTableSeeder extends Seeder
         DB::table('holidays')->insert([
             'user_id' => 3,
             'day' => '2020-10-10',
-            'description' => '公休',
+            'description' => '公',
         ]);
 
         DB::table('holidays')->insert([
             'user_id' => 3,
             'day' => '2020-10-23',
-            'description' => '代休',
+            'description' => '代',
         ]);
     }
 }
