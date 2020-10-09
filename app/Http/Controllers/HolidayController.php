@@ -23,24 +23,34 @@ class HolidayController extends Controller
     {
         $validatedData = $request->validate([
             'day' => 'required|date_format:Y-m-d',
-            'description' => 'required',
+            
         ]);
         // POSTで受信した休日データの登録
             $holiday = new Holiday();
             
             $holiday->day = $request->day;
-            $holiday->description = $request->description;
             $holiday->user_id = auth()->user()->id;
+        
+
+            if($request->kokyu) {
+                $holiday->description = '公';
+            } elseif ($request->hanko){
+                $holiday->description = '半公';
+            } elseif($request->yukyu) {
+                $holiday->description = '有';
+            } elseif($request->hanyu) {
+                $holiday->description = '半有';
+            } elseif($request->daikyu) {
+                $holiday->description = '代';
+            } elseif($request->handai) {
+                $holiday->description = '半代';
+            } 
             $holiday->save();
-            
            return redirect('/holiday');
-         // 休日データ取得
-         //$data = new Holiday();
-         //$list = Holiday::where('user_id', auth()->user()->id)->get();
-         //return view('calendar.holiday', ['list' => $list,'data' => $data]);
+         
     }
 
-    public function edit($id)
+   public function edit($id)
     {
         
         

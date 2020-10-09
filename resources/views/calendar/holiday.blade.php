@@ -8,11 +8,12 @@
     @csrf   
     <label for="day">日付[YYYY/MM/DD] </label>
     <input type="text" name="day" class="form-control" id="day" value="{{$data->day}}">
-    <label for="description">説明</label>
-    <input type="text" name="description" class="form-control" id="description" value="{{$data->description}}"> 
-    </div>
-    <button type="submit" class="btn btn-primary">登録</button> 
-    <input type="hidden" name="id" value="{{$data->id}}">
+    <input class="btn  btn-primary"  type="submit"  name="kokyu"   value="公">
+    <input class="btn  btn-primary"  type="submit"  name="hanko"  value="半公">
+    <input class="btn  btn-primary"  type="submit"  name="yukyu"   value="有">
+    <input class="btn  btn-primary"  type="submit"  name="hanyu"   value="半有">
+    <input class="btn  btn-primary"  type="submit"  name="daikyu"  value="代">
+    <input class="btn  btn-primary"  type="submit"  name="handai"   value="半代">
     </form> 
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -29,8 +30,6 @@
     <tr>
     <th scope="col">日付</th>
     <th scope="col">説明</th>
-    <th scope="col">作成日</th>
-    <th scope="col">更新日</th>
     </tr>
     </thead>
     @foreach($list as $val)
@@ -38,7 +37,6 @@
         <!-- 日付のリンクをつける -->
         <th scope="row"><a href="{{ url('/holiday/'.$val->id) }}">{{$val->day}}</a></th>
         <td>{{$val->description}}</td>
-        <td>{{$val->created_at}}</td>
         <td><form action="/holiday" method="post">
             <input type="hidden" name="id" value="{{$val->id}}">
             {{ method_field('delete') }}
