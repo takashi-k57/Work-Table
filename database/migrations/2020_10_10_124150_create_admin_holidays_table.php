@@ -15,6 +15,7 @@ class CreateAdminHolidaysTable extends Migration
     {
         Schema::create('admin_holidays', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->date('adminholiday');
             $table->timestamps();
         });
     }
