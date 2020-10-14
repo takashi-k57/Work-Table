@@ -25,12 +25,6 @@ Route::group(['middleware' => 'auth'],function(){
 
 Auth::routes();
 
-//Route::get('/', function () { return redirect('/home'); });
- 
-//Route::group(['middleware' => 'auth:user'], function() {
-   // Route::get('/home', 'HomeController@index')->name('new');
-//});
-
 Route::group(['prefix' => 'admin'],function(){
     Route::get('/',   function(){return redirect('/admin/home');});
     Route::get('login', 'Admin\Auth\LoginController@showLoginForm')->name('admin.login');
@@ -43,4 +37,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'],function(){
     Route::post('logout', 'Admin\Auth\LoginController@logout')->name('admin.logout');
     Route::get('home', 'Admin\HomeController@index')->name('admin.home');
     Route::get('/', 'Admin\HomeController@index')->name('admin.home');
+    Route::get('/annualholidays/create', 'Admin\HomeController@create');
+    Route::post('/annualholidays/', 'Admin\HomeController@store');
 });

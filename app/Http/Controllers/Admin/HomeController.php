@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Holiday;
 use App\User;
 use App\dayIterator;
+use App\AnnualHoliday;
 
 class HomeController extends Controller
 {
@@ -40,5 +41,25 @@ class HomeController extends Controller
                 'holidays' => new Holiday,
                 'dayIterator' => $dayIterator
              ]);
+    }
+
+    public function create() {
+        $annualHoliday = AnnualHoliday::all()->sortByDesc('month');
+
+        return view('admin.annualholidays', ['annualHolidays' => $annualHoliday]);
+    }
+
+    public function store(Request $request) {
+        
+        foreach(range(1, 12) as $month) {
+            $annualHoliday = new AnnualHoliday;
+            $holidays = $request->input("holidays{$month}") ?? 0;
+            $annualHoliday->month = $month;
+            $annualHoliday->holidays = $holidays;
+            $annualHoliday->save();
+        }
+
+        return redirect('/admin/');
+        
     }
 }
