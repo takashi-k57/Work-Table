@@ -45,6 +45,7 @@ class Holiday extends Model
     }
 
     public static function getHolidayObj(User $user, dayIterator $dayIterator) {
+        $holidays = [];
         foreach( $dayIterator as $dayobj ) {
 
             foreach( $user->holidays as $holiday ) {
@@ -58,6 +59,7 @@ class Holiday extends Model
     }
 
     public static function getHoliday(User $user, dayIterator $dayIterator) {
+        $holidays = [];
         foreach( $dayIterator as $dayobj ) {
 
             foreach( $user->holidays as $holiday ) {

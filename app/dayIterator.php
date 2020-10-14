@@ -12,8 +12,11 @@ class dayIterator implements \Iterator {
     public $is_public_holiday = false;
     public $option = "month";
 
-    public function __construct($option = "month") {
+    public function __construct($option = "month", $diff = null) {
         $now = new \DateTime(); 
+        if (isset($diff)) {
+            $now->add(new \DateInterval('P1M'));
+        }
         $this->first_day = new \DateTime($now->format('y-m-01'));
         $this->last_day = new \DateTime($now->format('y-m-t')); 
         
@@ -62,5 +65,9 @@ class dayIterator implements \Iterator {
             return $this->day->format('y') == $this->last_day->format('y');
         }
         
+    }
+
+    public function getMonth() {
+        return $this->day->format('m');
     }
 }

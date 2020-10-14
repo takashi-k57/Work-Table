@@ -25,14 +25,16 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $dayIterator = new dayIterator();
-
-        $now = new \DateTime(); 
-        $first_day = new \DateTime($now->format('y-m-01')); 
-        $last_day = new \DateTime($now->format('y-m-t')); 
-
+        $month = $request->month;
+        // 一月だけページめくりを可能にする
+        if ($month == 'next' || $month == 'prev') {
+            $dayIterator = new dayIterator('month', $month);
+        }else {
+            $dayIterator = new dayIterator('month');
+        }
+        
         return view('admin.home', [
                 'users' => User::all(),
                 'holidays' => new Holiday,

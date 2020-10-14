@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use App\Holiday;
 use App\Calendar;
+use App\dayIterator;
 use Illuminate\Http\Request;
 
 class HolidayController extends Controller
@@ -15,7 +16,7 @@ class HolidayController extends Controller
     {   
         // 休日データ取得
         $data = new Holiday();
-        $list = Holiday::getSundayHoliday();
+        $list = Holiday::getSundayHoliday(auth()->user(), new dayIterator);
         return view('calendar.holiday', ['list' => $list,'data' => $data]);
     }
    
