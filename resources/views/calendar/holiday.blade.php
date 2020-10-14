@@ -18,7 +18,6 @@
     </select>
     </div>
     <button type="submit" class="btn btn-primary">登録</button> 
-    <input type="hidden" name="id" value="{{$data->id}}">
     </form> 
     @if ($errors->any())
     <div class="alert alert-danger">

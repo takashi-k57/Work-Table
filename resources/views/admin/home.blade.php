@@ -19,8 +19,8 @@
 
                 <a href="/admin?month=prev">前月</a>
                 <a href="/admin?month=next">次月</a>
-å               <h1>{{ $month }}</h1>
-                <h2>{{ $annualHoliday }}日</h2>
+å               <h1>{{ $month }}月</h1>
+                <h2>休日数{{ $annualHoliday }}日</h2>
                 <table>
                     <tr>
                         <td style="border:1px solid black; padding:1em;"></td>
