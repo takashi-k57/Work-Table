@@ -35,11 +35,16 @@ class HomeController extends Controller
         }else {
             $dayIterator = new dayIterator('month');
         }
+
+        $annualHoliday = new AnnualHoliday;
+        $month = $dayIterator->getMonth();
         
         return view('admin.home', [
                 'users' => User::all(),
                 'holidays' => new Holiday,
-                'dayIterator' => $dayIterator
+                'dayIterator' => $dayIterator,
+                'month' => $month,
+                'annualHoliday' => $annualHoliday::where('month', $month)->get()->sortByDesc('id')->shift()->holidays
              ]);
     }
 
