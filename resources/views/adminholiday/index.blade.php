@@ -3,9 +3,9 @@
 @section('content')
 <h1>公休数登録</h1>
 <div>
-<a class="btn btn-primary" href="/admin/holiday?year={{$last_year->year}}" role="button">&lt;前月</a>
+<a class="btn btn-primary" href="/admin/holiday?year={{$last_year->year}}" role="button">&lt;前年</a>
  {{$current_month->year}}年
-<a class="btn btn-primary" href="/admin/holiday?year={{$following_year->year}}" role="button">翌月&gt;</a>
+<a class="btn btn-primary" href="/admin/holiday?year={{$following_year->year}}" role="button">翌年&gt;</a>
 </div>
 <form method="POST" action="{{action('Admin\AdminHolidayController@store')}}"> 
     <table border="1">
@@ -29,10 +29,6 @@
         </th>
         @endfor
     @endif
-    </tr>
-    <tr>
-    <th>
-    </th>
     </tr>
     </table>
     @csrf

@@ -6,6 +6,7 @@
  {{$current_month->year}}年{{$current_month->month}}月
 <a class="btn btn-primary" href="/admin?year={{$following_month->year}}&month={{$following_month->month}}" role="button">翌月&gt;</a>
 </div>
+<div align=”rigth”>{{$admin_list->day}}休</div>
 <table border="1">
     <tr>
     @php

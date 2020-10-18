@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Calendar;
 use App\Holiday;
 use App\User;
+use App\Models\AdminHoliday;
 use Carbon\Carbon;
 use Yasumi\Yasumi;
 
@@ -45,7 +46,13 @@ class AdminCalendarController extends Controller
 
         $current_month_weekday = $current_month->dayOfWeek;
         $weekdays = ['日','月','火','水','木','金','土'];
-        return view('admincalendar.index', ['users' => $users, 'day' => $now, 'weekdays' => $weekdays, 'current_month' => $current_month, 'current_month_weekday' => $current_month_weekday, 'isHolidays' => $isHolidays, 'last_month' => $last_month, 'following_month' => $following_month]);
+
+        //公休数表示
+        $admin_list = AdminHoliday::where('year', $current_month->year)
+                     ->where('month', $current_month->month)
+                     ->first();
+
+        return view('admincalendar.index', ['users' => $users, 'day' => $now, 'weekdays' => $weekdays, 'current_month' => $current_month, 'current_month_weekday' => $current_month_weekday, 'isHolidays' => $isHolidays, 'last_month' => $last_month, 'following_month' => $following_month, 'admin_list' => $admin_list]);
 
     }
    
