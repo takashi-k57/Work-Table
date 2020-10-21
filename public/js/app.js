@@ -37261,9 +37261,13 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _setselected__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./setselected */ "./resources/js/setselected.js");
+/* harmony import */ var _changeholiday__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./changeholiday */ "./resources/js/changeholiday.js");
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -37277,7 +37281,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+
+
 window.addEventListener('DOMContentLoaded', function () {
+  var listener = {
+    oldvalue: '',
+    handleEvent: function handleClick(event) {
+      Object(_changeholiday__WEBPACK_IMPORTED_MODULE_1__["changeHoliday"])(event, this.oldvalue);
+    }
+  };
   var tds = document.querySelectorAll('.description td');
 
   var _iterator = _createForOfIteratorHelper(tds),
@@ -37286,35 +37298,20 @@ window.addEventListener('DOMContentLoaded', function () {
   try {
     for (_iterator.s(); !(_step = _iterator.n()).done;) {
       var td = _step.value;
-      var input = td.getElementsByTagName('input');
-      var select = td.querySelectorAll('select')[0];
-      select.addEventListener('change', function (e) {
-        console.log('changed');
-        var tr = e.target.parentNode.parentNode;
-        console.log(tr.querySelector('.works'));
-      });
-      var options = td.querySelectorAll('select option');
+      var input = td.getElementsByTagName('input')[0];
+      var select = td.querySelector('select');
 
-      if (input.length) {
-        var value = input[0].value;
+      if (input) {
+        // データベースに登録された状態を元に、セレクトボックスをチェック状態にする
+        Object(_setselected__WEBPACK_IMPORTED_MODULE_0__["setSelected"])(input, select);
+      } // focus状態から古い値を取り出す
 
-        var _iterator2 = _createForOfIteratorHelper(options),
-            _step2;
 
-        try {
-          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
-            var option = _step2.value;
+      select.addEventListener('focus', function (e) {
+        listener.oldvalue = e.target.value;
+      }); // 古い値を参照し、公休・有休・代休などを更新する
 
-            if (option.value == value) {
-              option.setAttribute('selected', true);
-            }
-          }
-        } catch (err) {
-          _iterator2.e(err);
-        } finally {
-          _iterator2.f();
-        }
-      }
+      select.addEventListener('change', listener, false);
     }
   } catch (err) {
     _iterator.e(err);
@@ -37367,6 +37364,96 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/changeholiday.js":
+/*!***************************************!*\
+  !*** ./resources/js/changeholiday.js ***!
+  \***************************************/
+/*! exports provided: changeHoliday */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "changeHoliday", function() { return changeHoliday; });
+var changeHoliday = function changeHoliday(event, oldvalue) {
+  var valueSelectors = [{
+    value: '有',
+    selector: '.yukyu'
+  }, {
+    value: '公',
+    selector: '.kokyu'
+  }, {
+    value: '代',
+    selector: '.daikyu'
+  }];
+  var select = event.target;
+  var tr = select.closest('tr');
+  var newvalue = select.value;
+
+  for (var _i = 0, _valueSelectors = valueSelectors; _i < _valueSelectors.length; _i++) {
+    var valueSelector = _valueSelectors[_i];
+    var selector = valueSelector.selector;
+    var target = tr.querySelector(selector);
+
+    if (valueSelector.value == oldvalue) {
+      target.textContent = Number(target.textContent) - 1;
+    }
+
+    if (valueSelector.value == newvalue) {
+      target.textContent = Number(target.textContent) + 1;
+    }
+  }
+};
+
+
+
+/***/ }),
+
+/***/ "./resources/js/setselected.js":
+/*!*************************************!*\
+  !*** ./resources/js/setselected.js ***!
+  \*************************************/
+/*! exports provided: setSelected */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSelected", function() { return setSelected; });
+function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+var setSelected = function setSelected(input, select) {
+  var options = select.querySelectorAll('option');
+  console.log(options);
+
+  if (options.length) {
+    var value = input.value;
+
+    var _iterator = _createForOfIteratorHelper(options),
+        _step;
+
+    try {
+      for (_iterator.s(); !(_step = _iterator.n()).done;) {
+        var option = _step.value;
+
+        if (option.value == value) {
+          option.setAttribute('selected', true);
+        }
+      }
+    } catch (err) {
+      _iterator.e(err);
+    } finally {
+      _iterator.f();
+    }
+  }
+};
+
+
 
 /***/ }),
 

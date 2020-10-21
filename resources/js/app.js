@@ -6,25 +6,34 @@
 
 require('./bootstrap');
 
+import { setSelected } from './setselected';
+import { changeHoliday } from './changeholiday';
+
 window.addEventListener('DOMContentLoaded', () => {
+
+    const listener = {
+        oldvalue: '',
+        handleEvent: function handleClick(event) {
+            changeHoliday(event, this.oldvalue);
+        }
+    };
+
     const tds = document.querySelectorAll('.description td');
     for (const td of tds) {
-      const input = td.getElementsByTagName('input');
-      const select = td.querySelectorAll('select')[0];
-      
-      select.addEventListener('change', (e) => {
-        console.log('changed');
-        const tr = e.target.parentNode.parentNode;
-        console.log(tr.querySelector('.works'));
-      });
-      const options = td.querySelectorAll('select option');
-      if (input.length) {
-        const value = input[0].value;
-        for (const option of options) {
-          if (option.value == value) {
-            option.setAttribute('selected', true);
-          }
-        }
+      const input = td.getElementsByTagName('input')[0];
+      const select = td.querySelector('select');
+
+      if (input) {
+        // データベースに登録された状態を元に、セレクトボックスをチェック状態にする
+         setSelected(input, select);
       }
+
+      // focus状態から古い値を取り出す
+      select.addEventListener('focus', (e) => {
+        listener.oldvalue = e.target.value;
+      });
+
+      // 古い値を参照し、公休・有休・代休などを更新する
+      select.addEventListener('change', listener, false);
     }
   });

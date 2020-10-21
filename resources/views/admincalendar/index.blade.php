@@ -70,10 +70,11 @@
         @endif
 
         <select name="description" id="">
-          <option value="公">公休</option>
-          <option value="有">有休</option>
+          <option value="公">公</option>
+          <option value="有">有</option>
           <option value="半公">半公</option>
           <option value="半有">半有</option>
+          <option value="代">代</option>
         </select>
         @if ($weekday++%7 == 0)
             <input type="hidden" value="公休" name="description">
@@ -101,7 +102,3 @@
     @endforeach
   </table>
 @endsection
-
-<script>
-
-</script>
