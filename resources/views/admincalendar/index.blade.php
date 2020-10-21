@@ -6,7 +6,7 @@
  {{$current_month->year}}年{{$current_month->month}}月
 <a class="btn btn-primary" href="/admin?year={{$following_month->year}}&month={{$following_month->month}}" role="button">翌月&gt;</a>
 </div>
-<div align=”rigth”>{{$admin_list->day}}休</div>
+<div align=”rigth”>休</div>
 <table border="1">
     <tr>
     @php
@@ -48,7 +48,7 @@
         $yukyu = null;
         $daikyu = null;
       @endphp
-　　<tr>
+　　<tr class="description">
     @php
        $weekday = $current_month_weekday;
     @endphp
@@ -68,12 +68,20 @@
         @else
           <td>
         @endif
+
+        <select name="description" id="">
+          <option value="公">公休</option>
+          <option value="有">有休</option>
+          <option value="半公">半公</option>
+          <option value="半有">半有</option>
+        </select>
         @if ($weekday++%7 == 0)
-            公
+            <input type="hidden" value="公休" name="description">
         @elseif (!empty($user->holidays))
           @foreach ($user->holidays as $holiday)
             @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $holiday->day )
-              {{ $holiday -> description }} 
+            {{ $holiday->description }}
+              <input type="hidden" value="{{ $holiday->description }}" name="description">
            @endif
           @endforeach
         @endif
@@ -85,11 +93,36 @@
         $daikyu = $user->daikyu($current_month->year, $current_month->month);
         $works = $current_month->daysInMonth - $kokyu - $yukyu - $daikyu;
      @endphp
-     <th>{{$works}}</th>
-     <th>{{$kokyu}}</th>
-     <th>{{$yukyu}}</th>
-     <th>{{$daikyu}}</th>
+     <th class="works">{{$works}}</th>
+     <th class="kokyu">{{$kokyu}}</th>
+     <th class="yukyu">{{$yukyu}}</th>
+     <th class="daikyu">{{$daikyu}}</th>
     </tr>
     @endforeach
   </table>
 @endsection
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const tds = document.querySelectorAll('.description td');
+    for (const td of tds) {
+      const input = td.getElementsByTagName('input');
+      const select = td.querySelectorAll('select')[0];
+      
+      select.addEventListener('change', (e) => {
+        console.log('changed');
+        const tr = e.target.parentNode.parentNode;
+        console.log(tr.querySelector('.works'));
+      });
+      const options = td.querySelectorAll('select option');
+      if (input.length) {
+        const value = input[0].value;
+        for (const option of options) {
+          if (option.value == value) {
+            option.setAttribute('selected', true);
+          }
+        }
+      }
+    }
+  });
+</script>
