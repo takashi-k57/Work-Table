@@ -55,6 +55,10 @@ class AdminCalendarController extends Controller
         return view('admincalendar.index', ['users' => $users, 'day' => $now, 'weekdays' => $weekdays, 'current_month' => $current_month, 'current_month_weekday' => $current_month_weekday, 'isHolidays' => $isHolidays, 'last_month' => $last_month, 'following_month' => $following_month, 'admin_list' => $admin_list]);
 
     }
+
+    public function store(Request $request){
+        
+    }
    
     //public function hoge(){
         //return view('admincalendar.index', ['days' =>Calendar::getDays]);

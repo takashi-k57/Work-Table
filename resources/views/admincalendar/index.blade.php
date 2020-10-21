@@ -53,6 +53,14 @@
        $weekday = $current_month_weekday;
     @endphp
   　　<th>{{$user -> name}}</th>
+     <form>
+     <select>
+        <option value="kokyu">公</option>
+        <option value="html">HTML</option>
+        <option value="css">CSS</option>
+        <option value="php">PHP</option>
+        <option value="js">JavaScript</option>
+      </select>
      @for ($i = 1; $i <= $current_month->daysInMonth; $i++)
         @php
           $holiday_flag = false;
@@ -78,6 +86,7 @@
           @endforeach
         @endif
           </td>
+        </form>
      @endfor
      @php
         $kokyu = $kokyu + $user->kokyu($current_month->year, $current_month->month);
