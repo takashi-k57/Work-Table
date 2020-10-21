@@ -6,27 +6,34 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+import { setSelected } from './setselected';
+import { changeHoliday } from './changeholiday';
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+window.addEventListener('DOMContentLoaded', () => {
 
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+    const listener = {
+        oldvalue: '',
+        handleEvent: function handleClick(event) {
+            changeHoliday(event, this.oldvalue);
+        }
+    };
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+    const tds = document.querySelectorAll('.description td');
+    for (const td of tds) {
+      const input = td.getElementsByTagName('input')[0];
+      const select = td.querySelector('select');
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+      if (input) {
+        // データベースに登録された状態を元に、セレクトボックスをチェック状態にする
+         setSelected(input, select);
+      }
 
-const app = new Vue({
-    el: '#app',
-});
+      // focus状態から古い値を取り出す
+      select.addEventListener('focus', (e) => {
+        listener.oldvalue = e.target.value;
+      });
+
+      // 古い値を参照し、公休・有休・代休などを更新する
+      select.addEventListener('change', listener, false);
+    }
+  });
