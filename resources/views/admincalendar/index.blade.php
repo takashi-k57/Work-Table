@@ -53,14 +53,6 @@
        $weekday = $current_month_weekday;
     @endphp
   　　<th>{{$user -> name}}</th>
-     <form>
-     <select>
-        <option value="kokyu">公</option>
-        <option value="html">HTML</option>
-        <option value="css">CSS</option>
-        <option value="php">PHP</option>
-        <option value="js">JavaScript</option>
-      </select>
      @for ($i = 1; $i <= $current_month->daysInMonth; $i++)
         @php
           $holiday_flag = false;
@@ -75,6 +67,9 @@
           <td bgcolor="#FF3333">
         @else
           <td>
+          <button type="button" class="btn btn-success" data-user_id="{{$user->id}}" data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
+          
+          </button>　
         @endif
         @if ($weekday++%7 == 0)
             公
@@ -86,7 +81,6 @@
           @endforeach
         @endif
           </td>
-        </form>
      @endfor
      @php
         $kokyu = $kokyu + $user->kokyu($current_month->year, $current_month->month);
