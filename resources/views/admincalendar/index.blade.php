@@ -64,12 +64,44 @@
             $holiday_flag = true;
           @endphp
         @elseif (array_search($current_month->format('Y-m') . '-' . sprintf('%02d', $i), $isHolidays))
-          <td bgcolor="#FF3333">
+          <td bgcolor="#FF3333">　
         @else
-          <td>
+        <td>
           <button type="button" class="btn btn-success" data-user_id="{{$user->id}}" data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
-          
+
           </button>　
+<div class="modal fade" id="modalForm" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal ヘッダー -->
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">Close</span>
+        </button>
+        </div>
+      <form role="form" id="form1">
+        <!-- Modal ボディー -->
+        <div class="modal-body">
+          <div class="form-group">
+            <input class="btn  btn-primary"  type="submit"  name="kokyu"   value="公">
+            <input class="btn  btn-primary"  type="submit"  name="hanko"  value="半公">
+            <input class="btn  btn-primary"  type="submit"  name="yukyu"   value="有">
+            <input class="btn  btn-primary"  type="submit"  name="hanyu"   value="半有">
+            <input class="btn  btn-primary"  type="submit"  name="daikyu"  value="代">
+            <input class="btn  btn-primary"  type="submit"  name="handai"   value="半代">
+        </div>
+        <!-- Modal フッター -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close
+          </button>
+          <button type="button" class="btn btn-primary" id="chgDateSub">変更
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>　
         @endif
         @if ($weekday++%7 == 0)
             公
