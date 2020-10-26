@@ -25,18 +25,20 @@
 
 Auth::routes();
 
-Route::get('/', function () { return redirect('/home'); });
+Route::get('/', function () { return 'aaa'; });
+// Route::get('/', function () { return redirect('/home'); });
  
 Route::group(['middleware' => 'auth:user'], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/holiday', 'HolidayController@create');
     Route::POST('/holiday', 'HolidayController@store');
     Route::delete('/holiday', 'HolidayController@destroy');
-    Route::get('/', 'CalendarController@index')->name('new');
+    // Route::get('/', 'CalendarController@index')->name('new');
 });
 
 Route::group(['prefix' => 'admin'],function(){
-    //Route::get('/',   function(){return redirect('/admin/home');});
+    Route::get('/',   function(){return redirect('/admin/home');});
+    Route::post('/',   'Admin\AdminCalendarController@store');
     Route::get('login', 'Admin\Auth\LoginController@showLoginForm')->name('admin.login');
     Route::post('login', 'Admin\Auth\LoginController@login');
     Route::get('register', 'Admin\Auth\RegisterController@showLoginForm')->name('admin.register');
