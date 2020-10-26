@@ -58,7 +58,20 @@ class AdminCalendarController extends Controller
     }
 
     public function store(Request $request) {
-        dd($request);
+        $request_array = $request->input();
+
+        unset($request_array["description"]);
+        unset($request_array["_token"]);
+
+        foreach($request_array as $key => $description) {
+            list($user_id, $day) = explode('_', $key);
+            Holiday::updateOrCreate(
+                ['user_id'=> $user_id, 'day' => $day],
+                ['description' => $description]
+            );
+        }
+
+        return redirect('/admin');
     } 
    
     //public function hoge(){

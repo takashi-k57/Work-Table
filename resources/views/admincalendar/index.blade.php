@@ -71,7 +71,7 @@
             <td>
           @endif
 
-          <select name="{{$user->name}}{{$i}}" id="{{$user->name}}{{$i}}">
+          <select name="{{$user->id}}_{{$current_month->format('Y-m')}}-{{sprintf('%02d', $i)}}" id="{{$user->name}}{{$i}}">
             <option value="公">公</option>
             <option value="有">有</option>
             <option value="半公">半公</option>
@@ -105,17 +105,4 @@
   </table>
   <input type="submit" value="保存する">
 </form>
-  <form action="/admin" method="POST">
-    @csrf
-    <select name="pets" id="pet-select">
-      <option value="">--Please choose an option--</option>
-      <option value="dog">Dog</option>
-      <option value="cat">Cat</option>
-      <option value="hamster">Hamster</option>
-      <option value="parrot">Parrot</option>
-      <option value="spider">Spider</option>
-      <option value="goldfish">Goldfish</option>
-    </select>
-    <input type="submit" value="保存する">
-  </form>
 @endsection
