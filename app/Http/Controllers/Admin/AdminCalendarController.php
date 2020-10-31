@@ -57,6 +57,29 @@ class AdminCalendarController extends Controller
     }
 
     public function store(Request $request){
+        $holiday = new Holiday();
+            
+        $holiday->day = $request->day;
+        $holiday->user_id = auth()->user()->id;
+    
+
+        if($request->kokyu) {
+            $holiday->description = '公';
+        } elseif ($request->hanko){
+            $holiday->description = '半公';
+        } elseif($request->yukyu) {
+            $holiday->description = '有';
+        } elseif($request->hanyu) {
+            $holiday->description = '半有';
+        } elseif($request->daikyu) {
+            $holiday->description = '代';
+        } elseif($request->handai) {
+            $holiday->description = '半代';
+        } 
+        $holiday->save();
+       return redirect(route('admin.new'));
+        
+        
 
     }
    

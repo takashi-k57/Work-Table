@@ -24,7 +24,7 @@ class AdminHolidayController extends Controller
         //翌年
         $following_year = Carbon::createFromDate($current_month->year+1, $current_month->month, 1, 'Asia/Tokyo');
 
-        return view('adminholiday/index', ['admin_list' => $admin_list, 'current_month' => $current_month, 'last_year' => $last_year, 'following_year' => $following_year]);
+        return view('adminholiday/index', ['admin_list' => $admin_list, 'current_month' => $current_month, 'last_year' => $last_year, 'following_year' => $following_year, ]);
     }
 
    public function store(Request $request){
@@ -36,7 +36,7 @@ class AdminHolidayController extends Controller
            );      
        }
 
-       
+
 
        return redirect(route('admin.holiday', ['year' => $form['year']]));
 

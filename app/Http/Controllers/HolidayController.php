@@ -72,7 +72,7 @@ class HolidayController extends Controller
         }
         //休日データ取得
           $data = new Holiday();
-          $list = Holiday::where('user_id', auth()->user()->id)->get();;
+          $list = Holiday::where('user_id', auth()->user()->id)->get();
         //dd($list);
         return redirect('/holiday');
 
