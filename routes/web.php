@@ -48,6 +48,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'],function(){
     Route::get('home', 'Admin\HomeController@index')->name('admin.home');
     Route::get('/', 'Admin\AdminCalendarController@index')->name('admin.new');
     Route::post('/', 'Admin\AdminCalendarController@store');
+    Route::delete('/', 'Admin\AdminCalendarController@delete');
     Route::get('/holiday', 'Admin\AdminHolidayController@index')->name('admin.holiday');
     Route::post('/holiday', 'Admin\AdminHolidayController@store');
 });

@@ -51,39 +51,64 @@ class AdminCalendarController extends Controller
         $admin_list = AdminHoliday::where('year', $current_month->year)
                      ->where('month', $current_month->month)
                      ->first();
+        
 
-        return view('admincalendar.index', ['users' => $users, 'day' => $now, 'weekdays' => $weekdays, 'current_month' => $current_month, 'current_month_weekday' => $current_month_weekday, 'isHolidays' => $isHolidays, 'last_month' => $last_month, 'following_month' => $following_month, 'admin_list' => $admin_list,]);
+        return view('admincalendar.index', ['users' => $users, 'day' => $now, 'weekdays' => $weekdays, 'current_month' => $current_month, 'current_month_weekday' => $current_month_weekday, 'isHolidays' => $isHolidays, 'last_month' => $last_month, 'following_month' => $following_month, 'admin_list' => $admin_list]);
 
     }
 
     public function store(Request $request){
-        $holiday = new Holiday();
+        $form = $request->all();
             
-        $holiday->day = $request->day;
-        $holiday->user_id = auth()->user()->id;
-    
+        $holiday = Holiday::where('user_id', $request->user_id)->where('day', $request->day)->get()->first();
 
-        if($request->kokyu) {
+        if (is_null($holiday)) {
+            $holiday = new Holiday();
+        }
+
+        if(isset($form['kokyu'])) {
             $holiday->description = '公';
-        } elseif ($request->hanko){
+            unset($form['kokyu']);
+        } elseif(isset($form['hanko'])) {
             $holiday->description = '半公';
-        } elseif($request->yukyu) {
+            unset($form['hanko']);
+        } elseif(isset($form['yukyu'])) {
             $holiday->description = '有';
-        } elseif($request->hanyu) {
+            unset($form['yukyu']);
+        } elseif(isset($form['hanyu'])) {
             $holiday->description = '半有';
-        } elseif($request->daikyu) {
+            unset($form['hanyu']);
+        } elseif(isset($form['daikyu'])) {
             $holiday->description = '代';
-        } elseif($request->handai) {
+            unset($form['daikyu']);
+        } elseif(isset($form['handai'])) {
             $holiday->description = '半代';
+            unset($form['handai']);
         } 
+
+        unset($form['_token']);
+
+        $holiday->fill($form);
         $holiday->save();
-       return redirect(route('admin.new'));
+
+       return redirect('/admin');
         
         
 
     }
    
-    //public function hoge(){
-        //return view('admincalendar.index', ['days' =>Calendar::getDays]);
-   // }
+    public function delete(Request $request){
+        $form = $request->all();
+
+        $holiday = Holiday::where('user_id', $request->user_id)->where('day', $request->day)->get()->first();
+
+        if (is_null($holiday)) {
+            return redirect('/admin');
+        }
+
+        $holiday->delete();
+
+        return redirect('/admin');
+
+    }
 }

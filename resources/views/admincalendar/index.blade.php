@@ -99,8 +99,9 @@
           <span class="sr-only">Close</span>
         </button>
         </div>
-      <form role="form" id="form1" action="{{ action('Admin\AdminCalendarController@store') }}">
+      <form role="form" action="{{ action('Admin\AdminCalendarController@store') }}" method="POST">
         <!-- Modal ボディー -->
+        @csrf
         <div class="modal-body">
           <div class="form-group">
             <input class="btn  btn-primary"  type="submit"  name="kokyu"   value="公">
@@ -109,17 +110,24 @@
             <input class="btn  btn-primary"  type="submit"  name="hanyu"   value="半有">
             <input class="btn  btn-primary"  type="submit"  name="daikyu"  value="代">
             <input class="btn  btn-primary"  type="submit"  name="handai"   value="半代">
-            <input id="modal-input-user-id" type="hidden" name="user_id">
-            <input id="modal-input-day" type="hidden" name="day">
+            <input class="modal-input-user-id" type="hidden" name="user_id">
+            <input class="modal-input-day" type="hidden" name="day">
           </div>
         </div>
         <!-- Modal フッター -->
         <div class="modal-footer">
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close
           </button>
-          <button type="button" class="btn btn-primary" id="chgDateSub">変更
-          </button>
         </div>
+      </form>
+      <form role="form" action="{{ action('Admin\AdminCalendarController@delete') }}" method="POST">
+        @csrf
+        {{method_field('DELETE')}}
+      <div> 
+        <input class="modal-input-user-id" type="hidden" name="user_id">
+        <input class="modal-input-day" type="hidden" name="day">
+        <input class="btn  btn-primary"  type="submit" value="削除">
+      </div>
       </form>
     </div>
   </div>
@@ -143,8 +151,8 @@
       var button = $(event.relatedTarget);
       var userId = button.data('user_id');
       var day = button.data('day');
-      $('#modal-input-user-id').val(userId);
-      $('#modal-input-day').val(day);      
+      $('.modal-input-user-id').val(userId);
+      $('.modal-input-day').val(day);      
     })
   </script>
 @endsection
