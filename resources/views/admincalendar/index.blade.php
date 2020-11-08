@@ -56,38 +56,52 @@
      @for ($i = 1; $i <= $current_month->daysInMonth; $i++)
         @php
           $holiday_flag = false;
+          $work_flag = false;
         @endphp
         
         @if ($weekday%7 == 0)
           <td bgcolor="#FFCC33">
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalForm" data-user_id="{{$user->id}}" data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalForm" data-user_id="{{$user->id}}" data-worksystem="{{$user->worksystem}}" data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
           
           </button>　
           @php
             $kokyu = $kokyu + 1;
             $holiday_flag = true;
+            $work_flag = true;
           @endphp
         @elseif (array_search($current_month->format('Y-m') . '-' . sprintf('%02d', $i), $isHolidays))
           <td bgcolor="#FF3333">　
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalForm" data-user_id="{{$user->id}}" data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
+          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalForm" data-user_id="{{$user->id}}" data-worksystem="{{$user->worksystem}}"data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
           
           </button>　
         @else
         <td>　
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalForm" data-user_id="{{$user->id}}" data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalForm" data-user_id="{{$user->id}}" data-worksystem="{{$user->worksystem}}"data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
           
           </button>　
         @endif
-        @if ($weekday++%7 == 0)
-            公
-        @elseif (!empty($user->holidays))
-          @foreach ($user->holidays as $holiday)
-            @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $holiday->day )
-              {{ $holiday -> description }} 
-           @endif
-          @endforeach
-        @endif
-          </td>
+         @if($user->worksystem == '常勤')
+            @if ($weekday++%7 == 0)
+              公
+            @elseif (!empty($user->holidays))
+               @foreach ($user->holidays as $holiday)
+                @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $holiday->day )
+                  {{ $holiday -> description }} 
+                @endif
+              @endforeach
+            @endif
+           @elseif ($user->worksystem == '非常勤')
+            @if ($weekday++%7 == 0)
+              公
+            @elseif (!empty($user->works))
+               @foreach ($user->works as $work)
+                  @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $work->day )
+                  {{ $work -> description }} 
+                  @endif
+                @endforeach
+              @endif
+          @endif
+        </td>
      @endfor
      <div class="modal fade" id="modalForm" role="dialog">
   <div class="modal-dialog">
@@ -104,12 +118,15 @@
         @csrf
         <div class="modal-body">
           <div class="form-group">
-            <input class="btn  btn-primary"  type="submit"  name="kokyu"   value="公">
-            <input class="btn  btn-primary"  type="submit"  name="hanko"  value="半公">
-            <input class="btn  btn-primary"  type="submit"  name="yukyu"   value="有">
-            <input class="btn  btn-primary"  type="submit"  name="hanyu"   value="半有">
-            <input class="btn  btn-primary"  type="submit"  name="daikyu"  value="代">
-            <input class="btn  btn-primary"  type="submit"  name="handai"   value="半代">
+            <input class="btn  btn-primary holiday"  type="submit"  name="kokyu"   value="公">
+            <input class="btn  btn-primary holiday"  type="submit"  name="hanko"  value="半公">
+            <input class="btn  btn-primary holiday"  type="submit"  name="yukyu"   value="有">
+            <input class="btn  btn-primary holiday"  type="submit"  name="hanyu"   value="半有">
+            <input class="btn  btn-primary holiday"  type="submit"  name="daikyu"  value="代">
+            <input class="btn  btn-primary holiday"  type="submit"  name="handai"   value="半代">
+            <input class="btn  btn-primary work"  type="submit"  name="work"   value="A">
+            <input class="btn  btn-primary work"  type="submit"  name="yukyu"   value="有">
+            <input class="btn  btn-primary work"  type="submit"  name="hanyu"   value="半有">
             <input class="modal-input-user-id" type="hidden" name="user_id">
             <input class="modal-input-day" type="hidden" name="day">
           </div>
@@ -131,10 +148,17 @@
   </div>
 </div>　
      @php
+       if($user->worksystem == '常勤'){
         $kokyu = $kokyu + $user->kokyu($current_month->year, $current_month->month);
         $yukyu = $user->yukyu($current_month->year, $current_month->month);
         $daikyu = $user->daikyu($current_month->year, $current_month->month);
         $works = $current_month->daysInMonth - $kokyu - $yukyu - $daikyu;
+       }elseif($user->worksystem == '非常勤'){
+        $yukyu = $user->yukyu_w($current_month->year, $current_month->month);
+        $works = $user->work($current_month->year, $current_month->month);
+        $kokyu = null;
+       }
+        
      @endphp
      <th>{{$works}}</th>
      <th>{{$kokyu}}</th>
@@ -149,6 +173,14 @@
       var button = $(event.relatedTarget);
       var userId = button.data('user_id');
       var day = button.data('day');
+      var worksystem = button.data('worksystem');
+      if ( worksystem === '常勤' ) {
+        $('input.work').addClass('hidden');
+        $('input.holiday').removeClass('hidden');
+      } else if ( worksystem === '非常勤' ) {
+        $('input.holiday').addClass('hidden');
+        $('input.work').removeClass('hidden');
+      }
       $('.modal-input-user-id').val(userId);
       $('.modal-input-day').val(day);      
     })

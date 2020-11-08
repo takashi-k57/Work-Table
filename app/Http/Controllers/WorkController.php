@@ -51,7 +51,7 @@ class WorkController extends Controller
           $data = new Work();
           $list = Work::where('user_id', auth()->user()->id)->get();
         //dd($list);
-        return redirect('/holiday');
+        return redirect('/work');
 
     }
 

@@ -14,7 +14,7 @@ class CalendarController extends Controller //クラス名間違いエラーあ�
 {
     
     public function index(Request $request){
-        
+
         if(Auth::check()){
             if(Auth::user()->worksystem == '常勤'){
                 $list = Holiday::where('user_id', auth()->user()->id)->get();

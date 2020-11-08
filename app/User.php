@@ -42,6 +42,11 @@ class User extends Authenticatable
     return $this->hasMany('App\Holiday');
   }
 
+    public function works()
+  {
+    return $this->hasMany('App\Models\Work');
+  }
+
     public  function kokyu($year, $month) {
     return $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '公')->count() * 1 + $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '半公')->count() * 0.5;
   }
@@ -52,6 +57,14 @@ class User extends Authenticatable
 
     public  function daikyu($year, $month) {
     return $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '代')->count() * 1 + $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '半代')->count() * 0.5;
+  }
+ 
+    public  function yukyu_w($year, $month) {
+    return $this->works()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '有')->count() * 1 + $this->works()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '半有')->count() * 0.5;
+  }
+  
+    public  function work($year, $month) {
+    return $this->works()->whereYear('day', $year)->whereMonth('day', $month)->where('description', 'A')->count() * 1 ;
   }
 
 }

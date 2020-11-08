@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Calendar;
+use App\Calendar_w;
 use App\Holiday;
+use App\Models\Work;
 use App\User;
 use App\Models\AdminHoliday;
 use Carbon\Carbon;
@@ -60,56 +63,101 @@ class AdminCalendarController extends Controller
 
     public function store(Request $request){
         $form = $request->all();
-            
-        $holiday = Holiday::where('user_id', $request->user_id)->where('day', $request->day)->get()->first();
+        $user = User::find($request->user_id);
 
-        if (is_null($holiday)) {
-            $holiday = new Holiday();
-        }
+            if($user->worksystem  == '常勤') {
+                $holiday = Holiday::where('user_id', $request->user_id)->where('day', $request->day)->get()->first();
 
-        if(isset($form['kokyu'])) {
-            $holiday->description = '公';
-            unset($form['kokyu']);
-        } elseif(isset($form['hanko'])) {
-            $holiday->description = '半公';
-            unset($form['hanko']);
-        } elseif(isset($form['yukyu'])) {
-            $holiday->description = '有';
-            unset($form['yukyu']);
-        } elseif(isset($form['hanyu'])) {
-            $holiday->description = '半有';
-            unset($form['hanyu']);
-        } elseif(isset($form['daikyu'])) {
-            $holiday->description = '代';
-            unset($form['daikyu']);
-        } elseif(isset($form['handai'])) {
-            $holiday->description = '半代';
-            unset($form['handai']);
-        } 
+                if (is_null($holiday)) {
+                    $holiday = new Holiday();
+                }
 
-        unset($form['_token']);
+                if(isset($form['kokyu'])) {
+                    $holiday->description = '公';
+                    unset($form['kokyu']);
+                } elseif(isset($form['hanko'])) {
+                    $holiday->description = '半公';
+                    unset($form['hanko']);
+                } elseif(isset($form['yukyu'])) {
+                    $holiday->description = '有';
+                    unset($form['yukyu']);
+                } elseif(isset($form['hanyu'])) {
+                    $holiday->description = '半有';
+                    unset($form['hanyu']);
+                } elseif(isset($form['daikyu'])) {
+                    $holiday->description = '代';
+                    unset($form['daikyu']);
+                } elseif(isset($form['handai'])) {
+                    $holiday->description = '半代';
+                    unset($form['handai']);
+                } 
 
-        $holiday->fill($form);
-        $holiday->save();
+                unset($form['_token']);
 
-       return redirect('/admin');
+                $holiday->fill($form);
+                $holiday->save();
+
+                return redirect('/admin');
         
-        
+            } elseif($user->worksystem == '非常勤'){
+                $work = Work::where('user_id', $request->user_id)->where('day', $request->day)->get()->first();
 
-    }
+                if (is_null($work)) {
+                    $work = new Work();
+                }
+
+                if(isset($form['work'])) {
+                    $work->description = 'A';
+                    unset($form['work']);
+                } elseif(isset($form['yukyu'])) {
+                    $work->description = '有';
+                    unset($form['yukyu']);
+                } elseif(isset($form['hanyu'])) {
+                    $work->description = '半有';
+                    unset($form['hanyu']);
+                }
+
+                unset($form['_token']);
+
+                $work->fill($form);
+                $work->save();
+
+                return redirect('/admin');
+            }
+        
+          
+    } 
+    
+      
+    
+
    
     public function delete(Request $request){
         $form = $request->all();
+        $user = User::find($request->user_id);
+            if($user->worksystem == '常勤'){
+                $holiday = Holiday::where('user_id', $request->user_id)->where('day', $request->day)->get()->first();
 
-        $holiday = Holiday::where('user_id', $request->user_id)->where('day', $request->day)->get()->first();
+                if (is_null($holiday)) {
+                    return redirect('/admin');
+                }
+        
+                $holiday->delete();
+        
+                return redirect('/admin');
+            }elseif($user->worksystem  == '非常勤'){
+                $work = Work::where('user_id', $request->user_id)->where('day', $request->day)->get()->first();
+     
+                if (is_null($work)) {
+                    return redirect('/admin');
+                }
+        
+                $work->delete();
+        
+                return redirect('/admin');
+            }
 
-        if (is_null($holiday)) {
-            return redirect('/admin');
-        }
-
-        $holiday->delete();
-
-        return redirect('/admin');
+        
 
     }
 }
