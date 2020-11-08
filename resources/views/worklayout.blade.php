@@ -12,7 +12,7 @@
 <body>
 <nav class="nav">
   <a class="nav-link active" href="{{ url('/') }}">Home</a>
-  <a class="nav-link" href="{{ url('holiday') }}">勤務・休日設定</a>
+  <a class="nav-link" href="{{ url('/work') }}">勤務・休日設定</a>
   <a class="nav-link" href="#">その他</a>
   <a class="nav-link disabled">ログアウト</a>
 </nav>
@@ -26,5 +26,4 @@
     @yield('content')
 </div>
 </body>
-</html>
- 
+</html> 

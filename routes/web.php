@@ -35,6 +35,15 @@ Route::group(['middleware' => 'auth:user'], function() {
     Route::get('/', 'CalendarController@index')->name('new');
 });
 
+Route::group(['middleware' => 'auth:user'], function() {
+    Route::get('/work', 'WorkController@create');
+    Route::post('/work', 'WorkController@store');
+    Route::delete('/work', 'WorkController@destroy');
+    // Route::get('/', 'CalendarWorkController@index')->name('newwork');
+});
+
+
+
 Route::group(['prefix' => 'admin'],function(){
     //Route::get('/',   function(){return redirect('/admin/home');});
     Route::get('login', 'Admin\Auth\LoginController@showLoginForm')->name('admin.login');

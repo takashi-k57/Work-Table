@@ -11,10 +11,11 @@
       <form class="mt-5, signupForm" id="new_user" action="{{ route('register') }}" accept-charset="UTF-8" method="post">
         @csrf
         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-          <label for="user_name">お名前</label>
+            <label for="user_name">お名前</label>
           <input class="form-control" placeholder="名前を入力してください" type="text" name="name" value="{{ old('name') }}" required autofocus>
           @if ($errors->has('name'))
-            <span class="help-block">
+            <s<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+              <span class="help-block">
               <strong>{{ $errors->first('name') }}</strong>
             </span>
           @endif
@@ -42,6 +43,19 @@
         <div class="form-group">
           <label for="user_password_confirmation">パスワード確認</label>
           <input class="form-control" placeholder="パスワードを再度入力してください" autocomplete="off" type="password" name="password_confirmation" required>
+        </div>
+        <div class="form-group{{ $errors->has('worksystem') ? ' has-error' : '' }}">
+          <label for="user_worksystem">勤務体系</label>
+          <br>
+          <select name="worksystem">
+            <option value="zyoukin">常勤</option>
+            <option value="hizyoukin">非常勤</option>
+          </select>
+            @if ($errors->has('worksystem'))
+              <span class="help-block">
+                <strong>{{ $errors->first('worksystem') }}</strong>
+              </span>
+            @endif
         </div>
         <div class="text-center">
           <input type="submit" name="commit" value="アカウントを作成" class="btn submitBtn" data-disable-with="アカウントを作成">

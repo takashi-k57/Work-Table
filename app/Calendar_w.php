@@ -1,11 +1,11 @@
-<?php 
+<?php
 namespace App;
-
-class Calendar
+class Calendar_w
 {
-    private $holidays;
-    function __construct($holidays){
-        $this->holidays = $holidays;
+    private $works;
+    function __construct($works){
+        $this->works = $works;
+
     }
     private $html;
     public function showCalendarTag($m, $y){

@@ -19,19 +19,38 @@ class UsersTableSeeder extends Seeder
             'name' => "本田圭佑",
             'email' => 'user1@gmail.com',
             'password' => Hash::make('password'),
+            'worksystem' => "常勤",
         ]);
 
         DB::table('users')->insert([
             'name' => "香川真司",
             'email' => 'user2@gmail.com',
             'password' => Hash::make('password'),
+            'worksystem' => "常勤",
         ]);
 
         DB::table('users')->insert([
             'name' => "柴崎岳",
             'email' => 'user3@gmail.com',
             'password' => Hash::make('password'),
+            'worksystem' => "常勤",
         ]);
+
+        DB::table('users')->insert([
+            'name' => "南野拓実",
+            'email' => 'admin1@gmail.com',
+            'password' => Hash::make('password'),
+            'worksystem' => "常勤",
+        ]);
+
+        DB::table('users')->insert([
+            'name' => "乾貴士",
+            'email' => 'admin2@gmail.com',
+            'password' => Hash::make('password'),
+            'worksystem' => "非常勤",
+        ]);
+
+
 
     }
 }

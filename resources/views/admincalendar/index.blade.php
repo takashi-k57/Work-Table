@@ -114,21 +114,19 @@
             <input class="modal-input-day" type="hidden" name="day">
           </div>
         </div>
+      </form>
         <!-- Modal フッター -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close
-          </button>
+          <form role="form" action="{{ action('Admin\AdminCalendarController@delete') }}" method="POST">
+          @csrf
+          {{method_field('DELETE')}}
+          <div> 
+            <input class="modal-input-user-id" type="hidden" name="user_id">
+            <input class="modal-input-day" type="hidden" name="day">
+            <input class="btn  btn-primary"  type="submit" value="削除">
+          </div>
+          </form>
         </div>
-      </form>
-      <form role="form" action="{{ action('Admin\AdminCalendarController@delete') }}" method="POST">
-        @csrf
-        {{method_field('DELETE')}}
-      <div> 
-        <input class="modal-input-user-id" type="hidden" name="user_id">
-        <input class="modal-input-day" type="hidden" name="day">
-        <input class="btn  btn-primary"  type="submit" value="削除">
-      </div>
-      </form>
     </div>
   </div>
 </div>　
