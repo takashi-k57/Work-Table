@@ -43,6 +43,16 @@
           <label for="user_password_confirmation">パスワード確認</label>
           <input class="form-control" placeholder="パスワードを再度入力してください" autocomplete="off" type="password" name="password_confirmation" required>
         </div>
+        <div class="form-group{{ $errors->has('is_part_time') ? ' has-error' : '' }}">
+          <label for="user_password">非常勤</label>
+          <br>
+          <input type="checkbox" name="is_part_time" value="1">
+            @if ($errors->has('is_part_time'))
+              <span class="help-block">
+                <strong>{{ $errors->first('is_part_time') }}</strong>
+              </span>
+            @endif
+        </div>
         <div class="text-center">
           <input type="submit" name="commit" value="アカウントを作成" class="btn submitBtn" data-disable-with="アカウントを作成">
         </div>
