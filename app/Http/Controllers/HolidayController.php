@@ -16,6 +16,10 @@ class HolidayController extends Controller
         // 休日データ取得
         $data = new Holiday();
         $list = Holiday::where('user_id', auth()->user()->id)->get();
+
+        if (auth()->user()->is_part_time) {
+            return view('calendar.parttime_holiday', ['list' => $list, 'data' => $data]); 
+        }
         return view('calendar.holiday', ['list' => $list,'data' => $data]);
     }
    
@@ -44,6 +48,8 @@ class HolidayController extends Controller
                 $holiday->description = '代';
             } elseif($request->handai) {
                 $holiday->description = '半代';
+            } elseif($request->nikkin) {
+                $holiday->description = '日勤';
             } 
             $holiday->save();
            return redirect('/holiday');

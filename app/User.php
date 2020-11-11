@@ -43,7 +43,10 @@ class User extends Authenticatable
   }
 
     public  function kokyu($year, $month) {
-    return $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '公')->count() * 1 + $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '半公')->count() * 0.5;
+      if ($this->is_part_time) {
+        return 0;
+      }
+      return $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '公')->count() * 1 + $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '半公')->count() * 0.5;
   }
 
     public  function yukyu($year, $month) {
