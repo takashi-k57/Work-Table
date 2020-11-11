@@ -42,17 +42,32 @@ class User extends Authenticatable
   public function holidays() {
     return $this->hasMany('App\Holiday');
   }
-
+  
   public function setHolidays($year, $month, $sunday, $daysInMonth) {
-    $this->yukyu = $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '有')->count() * 1 + $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '半有')->count() * 0.5;
-    $this->daikyu = $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '代')->count() * 1 + $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '半代')->count() * 0.5;
-    $this->kokyu = $sunday + $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '公')->count() * 1 + $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '半公')->count() * 0.5;
-
-    $holidays = $this->yukyu + $this->daikyu + $this->kokyu;
+    $this->yukyu = $this->getTargetHolidays($year, $month, ['有', '半有'], $this->holidays());
+    $this->daikyu = $this->getTargetHolidays($year, $month, ['代', '半代'], $this->holidays());
+    $this->kokyu = $sunday + $this->getTargetHolidays($year, $month, ['公', '半公'], $this->holidays());
+    
     if ( $this->is_part_time ) {
-      $this->workingdays = $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', 'A')->count() * 1;
+      $this->workingdays = $this->getTargetHolidays($year, $month, ['A'], $this->holidays());
     } else {
+      $holidays = $this->yukyu + $this->daikyu + $this->kokyu;
       $this->workingdays = $daysInMonth - $holidays;
     }
   }
+  
+  
+  public function getTargetHolidays($year, $month, $descriptions, $holiday_model) {
+    $holidays = 0;
+    foreach( $descriptions as $description ) {
+      $holiday = $holiday_model->whereYear('day', $year)->whereMonth('day', $month)->where('description',  $description)->count();
+      if (strpos($description, '半')) {
+        $holiday = $holiday * 0.5;
+      }
+      $holidays += $holiday;
+    }
+    
+    return $holidays;
+  }
+  
 }
