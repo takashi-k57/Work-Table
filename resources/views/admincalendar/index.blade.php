@@ -44,7 +44,7 @@
     </tr>
 　　@foreach ($users as $user)
       @php
-        $kokyu = 0;
+        $sunday = 0;
         $yukyu = null;
         $daikyu = null;
       @endphp
@@ -64,7 +64,7 @@
           
           </button>　
           @php
-            $kokyu = $kokyu + 1;
+            $sunday = $sunday + 1;
             $holiday_flag = true;
           @endphp
         @elseif (array_search($current_month->format('Y-m') . '-' . sprintf('%02d', $i), $isHolidays))
@@ -133,15 +133,12 @@
   </div>
 </div>　
      @php
-        $kokyu = $kokyu + $user->kokyu($current_month->year, $current_month->month);
-        $yukyu = $user->yukyu($current_month->year, $current_month->month);
-        $daikyu = $user->daikyu($current_month->year, $current_month->month);
-        $works = $current_month->daysInMonth - $kokyu - $yukyu - $daikyu;
+        $user->setHolidays($current_month->year, $current_month->month, $sunday, $current_month->daysInMonth);
      @endphp
-     <th>{{$works}}</th>
-     <th>{{$kokyu}}</th>
-     <th>{{$yukyu}}</th>
-     <th>{{$daikyu}}</th>
+     <th>{{ $user->workingdays }}</th>
+     <th>{{ $user->kokyu }}</th>
+     <th>{{ $user->yukyu }}</th>
+     <th>{{ $user->daikyu }}</th>
     </tr>
     @endforeach
   </table>

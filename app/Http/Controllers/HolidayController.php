@@ -48,9 +48,14 @@ class HolidayController extends Controller
                 $holiday->description = '代';
             } elseif($request->handai) {
                 $holiday->description = '半代';
-            } elseif($request->nikkin) {
-                $holiday->description = '日勤';
-            } 
+            } elseif($request->work) {
+                $holiday->description = 'A';
+            } elseif($request->yukyu) {
+                $holiday->description = '有休';
+            } elseif($request->hanyu) {
+                $holiday->description = '半有';
+            }  
+            
             $holiday->save();
            return redirect('/holiday');
          

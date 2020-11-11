@@ -8,7 +8,9 @@
     @csrf   
     <label for="day">日付[YYYY/MM/DD] </label>
     <input type="text" name="day" class="form-control" id="day" value="{{$data->day}}">
-    <input class="btn  btn-primary"  type="submit"  name="nikkin"   value="日勤">
+    <input class="btn  btn-primary"  type="submit"  name="work"   value="A">
+    <input class="btn  btn-primary"  type="submit"  name="yukyu"   value="有休">
+    <input class="btn  btn-primary"  type="submit"  name="hankyu"   value="半休">
     </form> 
     @if ($errors->any())
     <div class="alert alert-danger">
