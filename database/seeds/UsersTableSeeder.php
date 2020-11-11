@@ -50,6 +50,12 @@ class UsersTableSeeder extends Seeder
             'worksystem' => "非常勤",
         ]);
 
+        DB::table('users')->insert([
+            'name' => "岡崎慎司",
+            'email' => 'admin3@gmail.com',
+            'password' => Hash::make('password'),
+            'worksystem' => "非常勤",
+        ]);
 
 
     }
