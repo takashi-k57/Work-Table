@@ -36,7 +36,7 @@ class WorkController extends Controller
         }        
         $work->save();
         // 休日データ取得
-        $list = Work::all();
+        $list = Work::where('user_id', auth()->user()->id)->get();
 
         return redirect('/work');
     }

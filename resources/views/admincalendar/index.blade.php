@@ -5,8 +5,7 @@
 <a class="btn btn-primary" href="/admin?year={{$last_month->year}}&month={{$last_month->month}}" role="button">&lt;前月</a>
  {{$current_month->year}}年{{$current_month->month}}月
 <a class="btn btn-primary" href="/admin?year={{$following_month->year}}&month={{$following_month->month}}" role="button">翌月&gt;</a>
-</div>
-<div align=”rigth”>{{$admin_list->day}}休</div>
+</div><div align=”rigth”>{{$admin_list->day}}休</div>
 <table border="1">
     <tr>
     @php
@@ -17,7 +16,7 @@
         @if ($weekday++%7 == 0)
         <th bgcolor="#FFCC33">{{$i}}</th>
         @elseif (array_search($current_month->format('Y-m') . '-' . sprintf('%02d', $i), $isHolidays))
-        <th bgcolor="#FF3333">{{$i}}</th>
+        <th bgcolor="#FF8888">{{$i}}</th>
         @else
         <th>{{$i}}</th>
         @endif
@@ -36,7 +35,7 @@
         @if ($weekday%7 == 0)
         <td bgcolor="#FFCC33">{{$weekdays[($weekday++)%7]}}</td>
         @elseif (array_search($current_month->format('Y-m') . '-' . sprintf('%02d', $i), $isHolidays))
-        <th bgcolor="#FF3333">{{$weekdays[($weekday++)%7]}}</th>
+        <th bgcolor="#FF8888">{{$weekdays[($weekday++)%7]}}</th>
         @else
         <td>{{$weekdays[($weekday++)%7]}}</td>
         @endif
@@ -70,7 +69,7 @@
             $work_flag = true;
           @endphp
         @elseif (array_search($current_month->format('Y-m') . '-' . sprintf('%02d', $i), $isHolidays))
-          <td bgcolor="#FF3333">　
+          <td bgcolor="#FF8888">　
           <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalForm" data-user_id="{{$user->id}}" data-worksystem="{{$user->worksystem}}"data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
           
           </button>　
