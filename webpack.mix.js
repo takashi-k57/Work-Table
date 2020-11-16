@@ -16,6 +16,7 @@ mix.js('resources/js/app.js', 'public/js')
     .browserSync({
         proxy: 'localhost',
         files: [
+            // '**/*'
             'public/css/app.css',
             'resources/views/admincalendar/index.blade.php'
         ]

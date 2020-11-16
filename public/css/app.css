@@ -10939,8 +10939,21 @@ a.text-dark:focus {
 
 .nav {
   background: gainsboro;
-  display: grid;
-  grid-template-columns: auto auto auto auto;
+  display: flex;
   text-align: center;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+}
+
+@media only screen and (max-width: 480px) {
+  .nav {
+    font-size: 0.5em;
+  }
+}
+
+h1.schedule {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
