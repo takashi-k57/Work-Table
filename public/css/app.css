@@ -10904,3 +10904,43 @@ a.text-dark:focus {
   }
 }
 
+.admin_index {
+  overflow: scroll;
+}
+
+.admin_index .month {
+  display: flex;
+  justify-content: space-around;
+  align-items: space-between;
+  width: 17em;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+}
+
+.admin_index .month p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.admin_index table th,
+.admin_index table td {
+  padding: 0.5em;
+  text-align: center;
+}
+
+.admin_index table .sunday {
+  background-color: #FFCC33;
+}
+
+.admin_index table .holiday {
+  background-color: #FF3333;
+}
+
+.nav {
+  background: gainsboro;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  text-align: center;
+}
+
