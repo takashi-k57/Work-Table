@@ -1,4 +1,4 @@
-@extends('worklayout')
+@extends('layouts/worklayout')
 @section('title', '勤務・休日設定')
 @section('content')
 <h1>勤務・休日設定</h1>

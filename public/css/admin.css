@@ -1,0 +1,22 @@
+th,
+td {
+  padding: 0.3em;
+  text-align: center;
+}
+
+.sunday {
+  background-color: #FFCC33;
+}
+
+.holiday {
+  background-color: #24e6dc;
+}
+
+.user {
+  padding: 0.5em;
+}
+
+.hidden {
+  display: none;
+}
+

@@ -1,11 +1,23 @@
-@extends('adminlayout')
+@extends('layouts/adminlayout')
 @section('title', 'カレンダー')
 @section('content')
-<div>
-<a class="btn btn-primary" href="/admin?year={{$last_month->year}}&month={{$last_month->month}}" role="button">&lt;前月</a>
- {{$current_month->year}}年{{$current_month->month}}月
-<a class="btn btn-primary" href="/admin?year={{$following_month->year}}&month={{$following_month->month}}" role="button">翌月&gt;</a>
-</div><div align=”rigth”>{{$admin_list->day}}休</div>
+<div class ="row">
+   <div class ="col-md-3"></div>
+   <div class ="col-md-6">
+    <p style = "text-align: center">月間勤務予定表</p>
+   </div>
+   <div class ="col-md-3"></div>
+</div>
+<div class="row">
+   <div class ="col-sm-11">
+     <a class="btn btn-primary" href="/admin?year={{$last_month->year}}&month={{$last_month->month}}" role="button">&lt;前月</a>
+     {{$current_month->year}}年{{$current_month->month}}月
+     <a class="btn btn-primary" href="/admin?year={{$following_month->year}}&month={{$following_month->month}}" role="button">翌月&gt;</a>
+   </div> 
+   <div class="col-sm-1">
+     {{$admin_list->day}}休
+   </div>
+</div>
 <table border="1">
     <tr>
     @php
@@ -59,47 +71,80 @@
         @endphp
         
         @if ($weekday%7 == 0)
-          <td bgcolor="#FFCC33">
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalForm" data-user_id="{{$user->id}}" data-worksystem="{{$user->worksystem}}" data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
-          
-          </button>　
-          @php
-            $kokyu = $kokyu + 1;
-            $holiday_flag = true;
-            $work_flag = true;
-          @endphp
-        @elseif (array_search($current_month->format('Y-m') . '-' . sprintf('%02d', $i), $isHolidays))
-          <td bgcolor="#FF8888">　
-          <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalForm" data-user_id="{{$user->id}}" data-worksystem="{{$user->worksystem}}"data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
-          
-          </button>　
-        @else
-        <td>　
-        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalForm" data-user_id="{{$user->id}}" data-worksystem="{{$user->worksystem}}"data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
-          
-          </button>　
-        @endif
-         @if($user->worksystem == '常勤')
+          <td bgcolor="#FFCC33" data-toggle="modal" data-target="#modalForm" data-user_id="{{$user->id}}" data-worksystem="{{$user->worksystem}}" data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
+@if($user->worksystem == '常勤')
             @if ($weekday++%7 == 0)
-              公
+公
             @elseif (!empty($user->holidays))
                @foreach ($user->holidays as $holiday)
                 @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $holiday->day )
-                  {{ $holiday -> description }} 
+{{ trim($holiday -> description) }} 
                 @endif
               @endforeach
             @endif
-           @elseif ($user->worksystem == '非常勤')
+        @elseif ($user->worksystem == '非常勤')
             @if ($weekday++%7 == 0)
-              公
+公
             @elseif (!empty($user->works))
                @foreach ($user->works as $work)
                   @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $work->day )
-                  {{ $work -> description }} 
+{{ trim($work -> description) }} 
                   @endif
-                @endforeach
-              @endif
-          @endif
+               @endforeach
+            @endif
+@endif
+@php
+            $kokyu = $kokyu + 1;
+            $holiday_flag = true;
+            $work_flag = true;
+@endphp
+        @elseif (array_search($current_month->format('Y-m') . '-' . sprintf('%02d', $i), $isHolidays))
+          <td bgcolor="#FF8888" data-toggle="modal" data-target="#modalForm" data-user_id="{{$user->id}}" data-worksystem="{{$user->worksystem}}"data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
+@if($user->worksystem == '常勤')
+            @if ($weekday++%7 == 0)
+公
+            @elseif (!empty($user->holidays))
+               @foreach ($user->holidays as $holiday)
+                @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $holiday->day )
+{{ trim($holiday -> description) }} 
+                @endif
+              @endforeach
+            @endif
+@elseif ($user->worksystem == '非常勤')
+            @if ($weekday++%7 == 0)
+公
+            @elseif (!empty($user->works))
+               @foreach ($user->works as $work)
+                  @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $work->day )
+{{ trim($work -> description) }} 
+                  @endif
+               @endforeach
+            @endif
+@endif
+        @else
+        <td data-toggle="modal" data-target="#modalForm" data-user_id="{{$user->id}}" data-worksystem="{{$user->worksystem}}"data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
+@if($user->worksystem == '常勤')
+            @if ($weekday++%7 == 0)
+公
+            @elseif (!empty($user->holidays))
+               @foreach ($user->holidays as $holiday)
+                @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $holiday->day )
+{{ trim($holiday -> description) }} 
+                @endif
+              @endforeach
+            @endif
+        @elseif ($user->worksystem == '非常勤')
+            @if ($weekday++%7 == 0)
+公
+            @elseif (!empty($user->works))
+               @foreach ($user->works as $work)
+                  @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $work->day )
+{{ trim($work -> description) }} 
+                  @endif
+               @endforeach
+            @endif
+         @endif
+@endif
         </td>
      @endfor
      <div class="modal fade" id="modalForm" role="dialog">
