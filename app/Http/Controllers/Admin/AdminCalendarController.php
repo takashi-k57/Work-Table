@@ -97,7 +97,10 @@ class AdminCalendarController extends Controller
                 $holiday->fill($form);
                 $holiday->save();
 
-                return redirect('/admin');
+                $year = substr($request->day, 0, 4);
+                $month = substr($request->day, 5, 2);
+
+                return redirect('/admin?year='.$year.'&month='.$month);
         
             } elseif($user->worksystem == '非常勤'){
                 $work = Work::where('user_id', $request->user_id)->where('day', $request->day)->get()->first();
@@ -122,7 +125,10 @@ class AdminCalendarController extends Controller
                 $work->fill($form);
                 $work->save();
 
-                return redirect('/admin');
+                $year = substr($request->day, 0, 4);
+                $month = substr($request->day, 5, 2);
+
+                return redirect('/admin?year='.$year.'&month='.$month);
             }
         
           

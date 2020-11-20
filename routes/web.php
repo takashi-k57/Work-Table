@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth:user'], function() {
 
 
 
-Route::group(['prefix' => 'admin'],function(){
+Route::group(['prefix' => 'admin', ],function(){
     //Route::get('/',   function(){return redirect('/admin/home');});
     Route::get('login', 'Admin\Auth\LoginController@showLoginForm')->name('admin.login');
     Route::post('login', 'Admin\Auth\LoginController@login');

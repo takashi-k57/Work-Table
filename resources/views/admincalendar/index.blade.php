@@ -4,7 +4,7 @@
 <div class ="row">
    <div class ="col-md-3"></div>
    <div class ="col-md-6">
-    <p style = "text-align: center">月間勤務予定表</p>
+    <p style = "text-align: center;font-size:30px">月間勤務予定表</p>
    </div>
    <div class ="col-md-3"></div>
 </div>
@@ -15,7 +15,9 @@
      <a class="btn btn-primary" href="/admin?year={{$following_month->year}}&month={{$following_month->month}}" role="button">翌月&gt;</a>
    </div> 
    <div class="col-sm-1">
-     {{$admin_list->day}}休
+    @if ($admin_list)
+      {{$admin_list->day}}休
+    @endif
    </div>
 </div>
 <table border="1">

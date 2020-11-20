@@ -3,7 +3,10 @@
 @section('content')
 <div class="signinPage">
   <div class="container">
-    <h2 class="title">勤務表（管理者用）にログイン</h2>
+    <div class ="log" style="width: 150px; height: 150px; margin: 0 auto;">
+     <img src="/logo_transparent.png" class="log-image" style="object-fit: contain; wigth: 100%; height: 100%;">
+    </div>
+    <h2 class="title" style="text-align: center">管理者ログイン</h2>
     <div class="text-center m-3">or</div>
     <div class="text-center">
       <p class="acountPage_link"><a href="{{ route('admin.register') }}">アカウントを作成</a></p>
