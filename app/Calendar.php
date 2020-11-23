@@ -31,20 +31,20 @@ class Calendar
         $day = 1 - $firstWeekDay;
 
         $this->html = <<< EOS
-<h1>
+<h1 style="text-align: center">
 <a class="btn btn-primary" href="/?year={$prev_year}&month={$prev_month}" role="button">&lt;前月</a>
 {$year}年{$month}月
 <a class="btn btn-primary" href="/?year={$next_year}&month={$next_month}" role="button">翌月&gt;</a>
 </h1>
 <table class="table table-bordered">
 <tr>
-   <th scope="col">日</th>
+   <th scope="col" style="color: red">日</th>
    <th scope="col">月</th>
    <th scope="col">火</th>
    <th scope="col">水</th>
    <th scope="col">木</th>
    <th scope="col">金</th>
-   <th scope="col">土</th>
+   <th scope="col" style="color: blue">土</th>
 </tr>
 EOS;
           //カレンダーの日付部分を生成する
