@@ -1,6 +1,7 @@
 <?php 
 namespace App;
 
+use App\Models\AdminHoliday;
 class Calendar
 {
     private $holidays;
@@ -36,7 +37,7 @@ class Calendar
 {$year}年{$month}月
 <a class="btn btn-primary" href="/?year={$next_year}&month={$next_month}" role="button">翌月&gt;</a>
 </h1>
-<table class="table table-bordered">
+<table class="table table-bordered" style="border: 1px solid rgb(173,173,173)">
 <tr>
    <th scope="col" style="color: red">日</th>
    <th scope="col">月</th>

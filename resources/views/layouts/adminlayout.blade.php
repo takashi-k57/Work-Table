@@ -21,17 +21,20 @@
       <a class="nav-link active" href="{{route('admin.new')}}">Home <span class="sr-only">(current)</span></a>
       <a class="nav-link" href="{{route('admin.holiday')}}">公休登録</a>
       <a class="nav-link" href="#">有給一覧</a>
-      <a class="nav-link" href="{{route('admin.login')}}">ログアウト</a>
+      <a class="nav-link" href="{{ route('admin.logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                ログアウト
+              </a>
+              <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                @csrf
+              </form>
+
     </div>
   </div>
 </nav>
    
-<form action="admin/logout" method="POST">
-        @csrf
-        <button>ログアウト</button>
-    </form>
 
-<div class="container-fluid">
+
+<div class="container">
     @yield('content')
 </div>
 </body>

@@ -20,7 +20,10 @@ class CalendarController extends Controller //クラス名間違いエラーあ�
                 $list = Holiday::where('user_id', auth()->user()->id)->get();
                 $cal = new Calendar($list);
                 $tag = $cal->showCalendarTag($request->month,$request->year);
-                return view('calendar.index', ['cal_tag' => $tag]);
+                $admin_list = AdminHoliday::where('year', $request->year)
+                    ->where('month', $request->month)
+                    ->first();
+                return view('calendar.index', ['cal_tag' => $tag, 'admin_list' =>$admin_list]);
             }elseif(Auth::user()->worksystem == '非常勤'){
                 $list = Work::where('user_id', auth()->user()->id)->get();
                 $cal = new Calendar($list);
@@ -30,8 +33,9 @@ class CalendarController extends Controller //クラス名間違いエラーあ�
         }
 
         //$admin_list = AdminHoliday::where('year', $tag->year)
-                    //->where('month', $tag->month)
+                   // ->where('month', $tag->month)
                     //->first();
+                 //return view('')
 
  
 

@@ -10,16 +10,25 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
 <body>
-<nav class="nav">
-  <a class="nav-link active" href="{{ url('/') }}">Home</a>
-  <a class="nav-link" href="{{ url('holiday') }}">勤務・休日設定</a>
-  <a class="nav-link disabled">ログアウト</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-secondary">
+  <a class="navbar-brand" href="{{ url('/') }}">勤務表</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link active" href="{{ url('/') }}">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="{{ url('holiday') }}">勤務・休日設定</a>
+      <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                ログアウト
+              </a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+              </form>
+    </div>
+  </div>
 </nav>
-   
-<form action="/logout" method="POST">
-        @csrf
-        <button>ログアウト</button>
-    </form>
+
 
 <div class="container">
     @yield('content')
