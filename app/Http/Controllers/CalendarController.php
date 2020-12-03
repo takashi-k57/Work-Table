@@ -14,15 +14,23 @@ class CalendarController extends Controller //クラス名間違いエラーあ�
 {
     
     public function index(Request $request){
+        $year = date("Y");
+        $month = date("m");
 
         if(Auth::check()){
             if(Auth::user()->worksystem == '常勤'){
                 $list = Holiday::where('user_id', auth()->user()->id)->get();
                 $cal = new Calendar($list);
                 $tag = $cal->showCalendarTag($request->month,$request->year);
-                $admin_list = AdminHoliday::where('year', $request->year)
-                    ->where('month', $request->month)
-                    ->first();
+                if(empty($request->year)){
+                    $admin_list = AdminHoliday::where('year', $year)
+                             ->where('month', $month)
+                             ->first();
+                }else{
+                    $admin_list = AdminHoliday::where('year', $request->year)
+                             ->where('month', $request->month)
+                             ->first();
+                }    
                 return view('calendar.index', ['cal_tag' => $tag, 'admin_list' =>$admin_list]);
             }elseif(Auth::user()->worksystem == '非常勤'){
                 $list = Work::where('user_id', auth()->user()->id)->get();
