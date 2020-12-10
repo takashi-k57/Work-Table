@@ -1,7 +1,7 @@
 @extends('layouts/adminlayout')
 @section('title', '公休数登録')
 @section('content')
-<h1>公休数登録</h1>
+<h1 style="text-align: center; margin-top:10px; margin-bottom:10px">公休数登録</h1>
 <div>
 <a class="btn btn-primary" href="/admin/holiday?year={{$last_year->year}}" role="button">&lt;前年</a>
  {{$current_month->year}}年

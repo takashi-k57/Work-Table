@@ -16,7 +16,7 @@
    </div> 
    <div class="col-sm-1">
     @if ($admin_list)
-      {{$admin_list->day}}休
+    <div>  {{$admin_list->day}}休</div>
     @endif
    </div>
 </div>
@@ -86,7 +86,7 @@
             @endif
         @elseif ($user->worksystem == '非常勤')
             @if ($weekday++%7 == 0)
-公
+
             @elseif (!empty($user->works))
                @foreach ($user->works as $work)
                   @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $work->day )
@@ -114,7 +114,7 @@
             @endif
 @elseif ($user->worksystem == '非常勤')
             @if ($weekday++%7 == 0)
-公
+
             @elseif (!empty($user->works))
                @foreach ($user->works as $work)
                   @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $work->day )
@@ -136,8 +136,7 @@
               @endforeach
             @endif
         @elseif ($user->worksystem == '非常勤')
-            @if ($weekday++%7 == 0)
-公
+        @if ($weekday++%7 == 0)
             @elseif (!empty($user->works))
                @foreach ($user->works as $work)
                   @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $work->day )
@@ -206,7 +205,7 @@
        }  
      @endphp
      <th>{{$works}}</th>
-     <th>{{$kokyu}}</th>
+     <th onClick="clickEvent({{$kokyu}});">{{$kokyu}}</th>
      <th>{{$yukyu}}</th>
      <th>{{$daikyu}}</th>
     </tr>
@@ -229,5 +228,13 @@
       $('.modal-input-user-id').val(userId);
       $('.modal-input-day').val(day);      
     })
+    function clickEvent(kokyu) {
+        var rest_holiday = {{ $admin_list->day }} - kokyu;
+       // var worksystem ={{ $user->worksystem = '常勤'}};
+        //if( worksystem ==='常勤' ){
+          alert('公休が残り'+ rest_holiday + '休取得できていません');
+        //}
+      
+    }
   </script>
 @endsection
