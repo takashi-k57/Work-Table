@@ -55,12 +55,13 @@
         @endif
      @endfor
     </tr>
-　　@foreach ($users as $user)
+   @foreach ($users as $user)
       @php
         $kokyu = 0;
         $yukyu = null;
         $daikyu = null;
       @endphp
+     
 　　<tr>
     @php
        $weekday = $current_month_weekday;
@@ -70,13 +71,31 @@
         @php
           $holiday_flag = false;
           $work_flag = false;
+          $not_user_holiday_sunday_flag = false;
         @endphp
         
         @if ($weekday%7 == 0)
           <td bgcolor="#FFCC33" data-toggle="modal" data-target="#modalForm" data-user_id="{{$user->id}}" data-worksystem="{{$user->worksystem}}" data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
 @if($user->worksystem == '常勤')
             @if ($weekday++%7 == 0)
+              @php
+                $not_user_holiday_sunday_flag = true;
+              @endphp
+             @foreach ($user->holidays as $holiday)
+                @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $holiday->day )
+{{ trim($holiday -> description)}}
+                  @php
+                    $not_user_holiday_sunday_flag = false;
+                  @endphp
+                @endif
+
+              @endforeach
+              @if ($not_user_holiday_sunday_flag)
 公
+@php
+  $kokyu = $kokyu + 1;
+@endphp
+              @endif
             @elseif (!empty($user->holidays))
                @foreach ($user->holidays as $holiday)
                 @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $holiday->day )
@@ -96,7 +115,6 @@
             @endif
 @endif
 @php
-            $kokyu = $kokyu + 1;
             $holiday_flag = true;
             $work_flag = true;
 @endphp
@@ -104,7 +122,12 @@
           <td bgcolor="#FF8888" data-toggle="modal" data-target="#modalForm" data-user_id="{{$user->id}}" data-worksystem="{{$user->worksystem}}"data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
 @if($user->worksystem == '常勤')
             @if ($weekday++%7 == 0)
-公
+              @foreach ($user->holidays as $holiday)
+                @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $holiday->day )
+{{ strlen(trim($holiday -> description)) === null ? '公' :  trim($holiday -> description)}}
+aataga
+                @endif
+              @endforeach
             @elseif (!empty($user->holidays))
                @foreach ($user->holidays as $holiday)
                 @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $holiday->day )
@@ -127,7 +150,12 @@
         <td data-toggle="modal" data-target="#modalForm" data-user_id="{{$user->id}}" data-worksystem="{{$user->worksystem}}"data-day="{{$current_month->format('Y-m') . '-' . sprintf('%02d', $i)}}">
 @if($user->worksystem == '常勤')
             @if ($weekday++%7 == 0)
-公
+             @foreach ($user->holidays as $holiday)
+                @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $holiday->day )
+{{ strlen(trim($holiday -> description)) === null ? '公' :  trim($holiday -> description)}}
+aataga
+                @endif
+              @endforeach
             @elseif (!empty($user->holidays))
                @foreach ($user->holidays as $holiday)
                 @if ( $current_month->format('Y-m') . '-' . sprintf('%02d', $i) == $holiday->day )
@@ -194,7 +222,7 @@
 </div>　
      @php
        if($user->worksystem == '常勤'){
-        $kokyu = $kokyu + $user->kokyu($current_month->year, $current_month->month);
+        $kokyu =  $kokyu + $user->kokyu($current_month->year, $current_month->month);
         $yukyu = $user->yukyu($current_month->year, $current_month->month);
         $daikyu = $user->daikyu($current_month->year, $current_month->month);
         $works = $current_month->daysInMonth - $kokyu - $yukyu - $daikyu;
@@ -230,10 +258,9 @@
     })
     function clickEvent(kokyu) {
         var rest_holiday = {{ $admin_list->day }} - kokyu;
-       // var worksystem ={{ $user->worksystem = '常勤'}};
-        //if( worksystem ==='常勤' ){
+        if( typeof kokyu !== 'undefined' ){
           alert('公休が残り'+ rest_holiday + '休取得できていません');
-        //}
+        }
       
     }
   </script>
