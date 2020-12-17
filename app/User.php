@@ -67,4 +67,20 @@ class User extends Authenticatable
     return $this->works()->whereYear('day', $year)->whereMonth('day', $month)->where('description', 'A')->count() * 1 ;
   }
 
+  public function paidholiday_count()
+  {
+    if($this->worksystem == '常勤'){
+      return $this->holidays->where('description', '有')->count() * 1 + $this->holidays->where('description', '半有')->count() * 0.5;
+    }elseif($this->worksystem == '非常勤'){
+      return $this->works->where('description', '有')->count() * 1 + $this->works->where('description', '半有')->count() * 0.5;
+    }
+  }
+
+        //有給表示
+        //if(Auth::user()'){
+            //$paid_holidays = Holiday::where('description', '有')->count() * 1 + Holiday::where('description', '半有')->count() * 0.5 ;
+        //}elseif(Auth::user()->worksystem == '非常勤'){
+            //$paid_holidays = Work::where('description', '有')->count() * 1 + Work::where('description', '半有')->count() * 0.5;
+       // }
+
 }

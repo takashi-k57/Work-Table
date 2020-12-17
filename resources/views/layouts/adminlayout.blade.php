@@ -20,7 +20,7 @@
     <div class="navbar-nav">
       <a class="nav-link active" href="{{route('admin.new')}}">Home <span class="sr-only">(current)</span></a>
       <a class="nav-link" href="{{route('admin.holiday')}}">公休登録</a>
-      <a class="nav-link" href="#">有給一覧</a>
+      <a class="nav-link" href="{{route('admin.paidholiday')}}">有給一覧</a>
       <a class="nav-link" href="{{ route('admin.logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                 ログアウト
               </a>

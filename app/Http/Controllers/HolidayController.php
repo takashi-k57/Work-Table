@@ -16,8 +16,9 @@ class HolidayController extends Controller
         // 休日データ取得
         $data = new Holiday();
         $list = Holiday::where('user_id', auth()->user()->id)->get();
+        $yukyu = $list->where('description', '有')->count() * 1 + $list->where('description', '半有')->count() * 0.5;
         
-        return view('calendar.holiday', ['list' => $list,'data' => $data]);
+        return view('calendar.holiday', ['list' => $list,'data' => $data, 'yukyu' => $yukyu]);
     }
    
     public function store(Request $request)
@@ -27,19 +28,13 @@ class HolidayController extends Controller
             
         ]);
         // POSTで受信した休日データの登録
-        $year =  date("Y");
-        $month = date("m");
-
-        $firstWeekDay = date("w", mktime(0, 0, 0, $month, 1, $year));
-
             $holiday = new Holiday();
             
             $holiday->day = $request->day;
             $holiday->user_id = auth()->user()->id;
         
-            if($firstWeekDay){
-                $holiday->description = '公';
-            }elseif($request->kokyu) {
+            
+            if($request->kokyu) {
                 $holiday->description = '公';
             } elseif ($request->hanko){
                 $holiday->description = '半公';

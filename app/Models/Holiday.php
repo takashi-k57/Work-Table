@@ -22,6 +22,9 @@ class Holiday extends Model
       return $this->belongsTo('App\User');
     }
 
-    
+   // public  function yukyu(Request $request) {
+      //return $this->holidays()->where('description', '有')->count() * 1 + $this->holidays()->where('description', '半有')->count() * 0.5;
+
+    //}
     
 }

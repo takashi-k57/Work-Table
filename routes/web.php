@@ -60,4 +60,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'],function(){
     Route::delete('/', 'Admin\AdminCalendarController@delete');
     Route::get('/holiday', 'Admin\AdminHolidayController@index')->name('admin.holiday');
     Route::post('/holiday', 'Admin\AdminHolidayController@store');
+    Route::get('/paidholiday', 'Admin\AdminPaidHolidayController@index')->name('admin.paidholiday');
 });

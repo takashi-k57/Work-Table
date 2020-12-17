@@ -13,7 +13,8 @@ class WorkController extends Controller
     {
         $data = new Work();
         $list = Work::where('user_id', auth()->user()->id)->get();
-        return view('calendar_w.work', ['list' => $list, 'data' => $data]);
+        $yukyu = $list->where('description', '有')->count() * 1 + $list->where('description', '半有')->count() * 0.5;
+        return view('calendar_w.work', ['list' => $list, 'data' => $data, 'yukyu' => $yukyu]);
     }
 
     public function store(Request $request)
