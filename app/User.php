@@ -67,6 +67,7 @@ class User extends Authenticatable
     return $this->works()->whereYear('day', $year)->whereMonth('day', $month)->where('description', 'A')->count() * 1 ;
   }
 
+     //有給表示
   public function paidholiday_count()
   {
     if($this->worksystem == '常勤'){

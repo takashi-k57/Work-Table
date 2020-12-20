@@ -8,7 +8,7 @@
     <div class="form-group">
     @csrf   
     <label for="day">日付[YYYY/MM/DD] </label>
-    <input type="text" name="day" class="form-control" id="day" value="{{$data->day}}">
+    <input type="date" name="day" class="form-control" id="day" value="{{$data->day}}">
     <input class="btn  btn-primary"  type="submit"  name="kokyu"   value="公">
     <input class="btn  btn-primary"  type="submit"  name="hanko"  value="半公">
     <input class="btn  btn-primary"  type="submit"  name="yukyu"   value="有">
@@ -49,11 +49,5 @@
     </tbody>
     </table>
     <a href="{{ url('/') }}">カレンダーに戻る</a>
-    <script>
-    $( function() {
-     $( "#day" ).datepicker({dateFormat: 'yy-mm-dd'});
-    } );
-    </script>
-    
 
 @endsection
