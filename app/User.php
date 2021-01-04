@@ -52,6 +52,13 @@ class User extends Authenticatable
   }
 
     public  function yukyu($year, $month) {
+
+      //$current_year = date('Y');
+      //$current_date = date('m/d');
+      //$search_range_start = ($current_year ."/".$current_date  > $current_year.'/03/31') ? (string)$current_year . "/04/01" : (string)($current_year - 1) . "/04/01";
+      //$search_range_end = ($current_year ."/".$current_date  > $current_year.'/03/31') ? (string)($current_year - 1) . "/03/31" : (string)($current_year) . "/03/31";
+      //$search_range = [$search_range_start, $search_range_end];
+      //dd($search_range);
     return $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '有')->count() * 1 + $this->holidays()->whereYear('day', $year)->whereMonth('day', $month)->where('description', '半有')->count() * 0.5;
   }
 
@@ -70,10 +77,17 @@ class User extends Authenticatable
      //有給表示
   public function paidholiday_count()
   {
+        $current_year = date('Y');
+        $current_date = date('m/d');
+        $search_range_start = ($current_year ."/".$current_date  > $current_year.'/03/31') ? (string)$current_year . "/04/01" : (string)($current_year - 1) . "/04/01";
+        $search_range_end = ($current_year ."/".$current_date  > $current_year.'/03/31') ? (string)($current_year - 1) . "/03/31" : (string)($current_year) . "/03/31";
+        $search_range = [$search_range_start, $search_range_end];
+        //dd($search_range);
+
     if($this->worksystem == '常勤'){
-      return $this->holidays->where('description', '有')->count() * 1 + $this->holidays->where('description', '半有')->count() * 0.5;
+      return $this->holidays()->wherebetween('day', $search_range)->where('description', '有')->count() * 1 + $this->holidays()->wherebetween('day', $search_range)->where('description', '半有')->count() * 0.5;
     }elseif($this->worksystem == '非常勤'){
-      return $this->works->where('description', '有')->count() * 1 + $this->works->where('description', '半有')->count() * 0.5;
+      return $this->works()->wherebetween('day', $search_range)->where('description', '有')->count() * 1 + $this->works()->wherebetween('day', $search_range)->where('description', '半有')->count() * 0.5;
     }
   }
 

@@ -12,7 +12,13 @@ class WorkController extends Controller
     public function create(Request $request)
     {
         $data = new Work();
-        $list = Work::where('user_id', auth()->user()->id)->get();
+        $current_year = date('Y');
+        $current_date = date('m/d');
+        $search_range_start = ($current_year ."/".$current_date  > $current_year.'/03/31') ? (string)$current_year . "/04/01" : (string)($current_year - 1) . "/04/01";
+        $search_range_end = ($current_year ."/".$current_date  > $current_year.'/03/31') ? (string)($current_year - 1) . "/03/31" : (string)($current_year) . "/03/31";
+        $search_range = [$search_range_start, $search_range_end];
+
+        $list = Work::where('user_id', auth()->user()->id)->wherebetween('day', $search_range)->get();
         $yukyu = $list->where('description', '有')->count() * 1 + $list->where('description', '半有')->count() * 0.5;
         return view('calendar_w.work', ['list' => $list, 'data' => $data, 'yukyu' => $yukyu]);
     }

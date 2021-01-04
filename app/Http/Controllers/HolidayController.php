@@ -15,7 +15,24 @@ class HolidayController extends Controller
     {   
         // 休日データ取得
         $data = new Holiday();
-        $list = Holiday::where('user_id', auth()->user()->id)->get();
+
+        $current_year = date('Y');
+        $current_date = date('m/d');
+        $search_range_start = ($current_year ."/".$current_date  > $current_year.'/03/31') ? (string)$current_year . "/04/01" : (string)($current_year - 1) . "/04/01";
+        $search_range_end = ($current_year ."/".$current_date  > $current_year.'/03/31') ? (string)($current_year - 1) . "/03/31" : (string)($current_year) . "/03/31";
+        $search_range = [$search_range_start, $search_range_end];
+
+        // $list = Holiday::wherebetween('day', ["2020/04/01", "2021/03/31"])->get();
+        //$list = Holiday::where('user_id', auth()->user()->id)->wherebetween('day', ["2020/04/01", "2021/03/31"])->get();
+        $list = Holiday::where('user_id', auth()->user()->id)->wherebetween('day', $search_range)->get();
+
+
+        //if($current_year .'/'.$current_date  > $current_year.'/03/31'){
+            //$search_range = [$current_year. '/04/01', $current_year + 1 .'/03/31'];
+        //}
+        // $search_range = ($current_year ."/".$current_date  > $current_year."/".'3/31') ? [$current_year."/04/01", $current_year + 1."/3/31"] : [$current_year - 1 ."/04/01", $current_year."/3/31"];
+
+
         $yukyu = $list->where('description', '有')->count() * 1 + $list->where('description', '半有')->count() * 0.5;
         
         return view('calendar.holiday', ['list' => $list,'data' => $data, 'yukyu' => $yukyu]);
