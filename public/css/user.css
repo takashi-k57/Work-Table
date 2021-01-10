@@ -1,0 +1,45 @@
+h1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  -webkit-text-size-adjust: 100%;
+}
+
+.navbar {
+  display: flex;
+  background-color: #0F9276;
+}
+
+@media only screen and (max-width: 480px) {
+  .navbar {
+    font-size: 0.5em;
+  }
+}
+
+.navbar-light .navbar-brand {
+  color: white;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: white;
+}
+
+.table .table-bordered {
+  overflow: scroll;
+}
+
+@media only screen and (max-width: 480px) {
+  h1 {
+    font-size: 1.5em;
+  }
+}
+
+body {
+  -webkit-text-size-adjust: 100%;
+}
+
+h1.holiday {
+  margin-top: 15px;
+  font-size: 2em;
+}
+

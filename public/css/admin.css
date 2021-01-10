@@ -24,3 +24,11 @@ td {
   display: none;
 }
 
+.calendar {
+  overflow: scroll;
+}
+
+.navbar {
+  background-color: #0F9276;
+}
+

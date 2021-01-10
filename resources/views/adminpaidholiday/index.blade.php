@@ -1,7 +1,7 @@
 @extends('layouts/adminlayout')
 @section('title', '有給一覧')
 @section('content')
-<h1 style="text-align: center; margin-top:10px; margin-bottom:10px">有給一覧表</h1>
+<h1 style="text-align: center; margin-top:15px; margin-bottom:20px; font-size:2em">有給一覧表</h1>
 <div class = "row">
   <div class ="col-md-3"></div>
   <div class ="col-md-6">

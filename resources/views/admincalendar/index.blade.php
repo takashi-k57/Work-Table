@@ -20,6 +20,7 @@
     @endif
    </div>
 </div>
+<div class = "calendar">
 <table border="1">
     <tr>
     @php
@@ -37,7 +38,7 @@
      @endfor
      <th rowspan="2">日勤</th>
      <th rowspan="2">公休</th>
-     <th rowspan="2">有休</th>
+     <th rowspan="2">有給</th>
      <th rowspan="2">代休</th>
     </tr>
     <tr>
@@ -264,4 +265,5 @@ aataga
       
     }
   </script>
+  </div>
 @endsection

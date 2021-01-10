@@ -1,7 +1,7 @@
 @extends('layouts/layout')
 @section('title', '休日設定')
 @section('content')
-    <h1>勤務・休日設定</h1>
+    <h1 class="holiday">勤務・休日設定</h1>
      <p>有給取得日数　{{$yukyu}}日</p>
     <!-- 休日入力フォーム -->
     <form method="POST" action="/holiday"> 
