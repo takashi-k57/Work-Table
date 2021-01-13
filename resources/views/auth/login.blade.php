@@ -4,7 +4,7 @@
 <div class="signinPage">
   <div class="container">
     <div class ="log" style="width: 150px; height: 150px; margin: 0 auto;">
-     <img src="/logo_transparent.png" class="log-image" style="object-fit: contain; wigth: 100%; height: 100%;">
+     <img src="/logo_transparent2.png" class="log-image" style="object-fit: contain; wigth: 100%; height: 100%;">
     </div>
     <h2 class="title" style="text-align: center">ログイン</h2>
     <div class="text-center m-3">or</div>

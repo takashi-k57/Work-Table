@@ -1,6 +1,6 @@
-body {
+.body {
   overflow: visible;
-  color: red;
+  background: #0F9276;
 }
 
 .sinupPage {
@@ -25,7 +25,7 @@ body {
 }
 
 .sinupPage .submitBtn {
-  background: #29b744;
+  background: #48c0c0;
   color: #fff;
   width: 200px;
   margin-top: 20px;

@@ -1,6 +1,6 @@
-body {
+.body {
     overflow: visible;
-    color:red;
+    background: #0F9276;
   }
   
   .sinupPage {
@@ -19,7 +19,7 @@ body {
       }
     }
     .submitBtn {
-      background: #29b744;
+      background: #48c0c0;
       color: #fff;
       width: 200px;
       margin-top: 20px;
@@ -34,4 +34,6 @@ body {
     .h2{
       text-align: center;
     }
+
+    
   }

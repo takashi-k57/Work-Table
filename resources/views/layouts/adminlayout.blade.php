@@ -12,14 +12,14 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 </head>
 <body>
-<nav class="navbar navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-light">
   <a class="navbar-brand" href="{{route('admin.new')}}">勤務表</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-link active" href="{{route('admin.new')}}">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-link " href="{{route('admin.new')}}">Home <span class="sr-only">(current)</span></a>
       <a class="nav-link" href="{{route('admin.holiday')}}">公休登録</a>
       <a class="nav-link" href="{{route('admin.paidholiday')}}">有給一覧</a>
       <a class="nav-link" href="{{ route('admin.logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
