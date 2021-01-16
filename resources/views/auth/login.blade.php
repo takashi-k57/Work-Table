@@ -13,7 +13,7 @@
     </div>
     <form class="new_user" id="new_user" action="{{ route('login') }}" accept-charset="UTF-8" method="post">
      @csrf
-      <div class="form-group">
+     <div class="form-group">
         <label for="user_email">メールアドレス</label><br>
         <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
         @if ($errors->has('email'))

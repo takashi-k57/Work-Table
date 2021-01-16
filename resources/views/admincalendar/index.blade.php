@@ -4,7 +4,7 @@
 <div class ="row">
    <div class ="col-md-3"></div>
    <div class ="col-md-6">
-   <p style = "text-align: center;font-size:30px">月間勤務予定表</p>
+   <p style = "text-align: center;font-size:30px">月間勤務予定表 </p>
    </div>
    <div class ="col-md-3"></div>
 </div>
