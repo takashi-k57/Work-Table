@@ -18,6 +18,7 @@ class CalendarController extends Controller //クラス名間違いエラーあ�
         $month = date("m");
 
         if(Auth::check()){
+           // dd(Auth::user());
             if(Auth::user()->worksystem == '常勤'){
                 $list = Holiday::where('user_id', auth()->user()->id)->get();
                 $cal = new Calendar($list);

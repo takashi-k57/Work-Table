@@ -226,10 +226,10 @@ aataga
         $kokyu =  $kokyu + $user->kokyu($current_month->year, $current_month->month);
         $yukyu = $user->yukyu($current_month->year, $current_month->month);
         $daikyu = $user->daikyu($current_month->year, $current_month->month);
-        $works = $current_month->daysInMonth - $kokyu - $yukyu - $daikyu;
+        $works= $current_month->daysInMonth - $kokyu - $yukyu - $daikyu;
        }elseif($user->worksystem == '非常勤'){
         $yukyu = $user->yukyu_w($current_month->year, $current_month->month);
-        $works = $user->work($current_month->year, $current_month->month);
+        $works= $user->work($current_month->year, $current_month->month);
         $kokyu = null;
        }  
      @endphp

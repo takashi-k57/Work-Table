@@ -48,8 +48,8 @@
           <label for="user_worksystem">勤務体系</label>
           <br>
           <select name="worksystem">
-            <option value="zyoukin">常勤</option>
-            <option value="hizyoukin">非常勤</option>
+            <option value="常勤">常勤</option>
+            <option value="非常勤">非常勤</option>
           </select>
             @if ($errors->has('worksystem'))
               <span class="help-block">
