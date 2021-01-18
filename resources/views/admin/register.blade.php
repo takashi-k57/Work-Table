@@ -30,7 +30,7 @@
         </div>
         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
           <label for="user_password">パスワード</label>
-          <em>(6文字以上入力してください)</em>
+          <em>(8文字以上入力してください)</em>
           <br>
           <input class="form-control" placeholder="パスワードを入力してください" autocomplete="off" type="password" name="password" required>
             @if ($errors->has('password'))
