@@ -25,10 +25,10 @@
 
 Auth::routes();
 
-Route::get('/', function () { return redirect('/home'); });
+//Route::get('/', function () { return redirect('/home'); });
  
 Route::group(['middleware' => 'auth:user'], function() {
-    Route::get('/home', 'HomeController@index')->name('home');
+    //Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/holiday', 'HolidayController@create');
     Route::POST('/holiday', 'HolidayController@store');
     Route::delete('/holiday', 'HolidayController@destroy');
