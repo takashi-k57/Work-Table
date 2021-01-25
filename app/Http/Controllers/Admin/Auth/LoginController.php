@@ -59,4 +59,9 @@ class LoginController extends Controller
 
         return redirect('/admin/login');
     }
+
+    public function username()
+         {
+            return 'name';
+         }
 }
